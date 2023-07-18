@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "classes")
@@ -30,7 +31,7 @@ public class ClassEntity {
     @JoinColumn(name = "block_id")
     private BlockEntity blockEntity;
 
-    @OneToOne(mappedBy = "classEntity")
-    private NotificationEntity notificationEntity;
+    @OneToMany(mappedBy = "classEntity")
+    private List<NotificationEntity> notifications;
 
 }

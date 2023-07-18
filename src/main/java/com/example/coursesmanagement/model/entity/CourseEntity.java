@@ -23,9 +23,9 @@ public class CourseEntity {
     @Column(name = "title")
     private String title;
 
-    @OneToOne(mappedBy = "courseEntity")
-    private UserRegistrationEntity userRegistrationEntity;
+    @OneToMany(mappedBy = "courseEntity")
+    private List<UserRegistrationEntity> userRegistrations;
 
     @OneToMany(mappedBy = "courseEntity")
-    private List<BlockEntity> blockEntities;
+    private List<BlockEntity> blocks;
 }

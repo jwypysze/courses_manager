@@ -29,7 +29,7 @@ public class UserRegistrationEntity {
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "course_id")
     private CourseEntity courseEntity;
 

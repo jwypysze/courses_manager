@@ -28,6 +28,6 @@ public class BlockEntity {
     private CourseEntity courseEntity;
 
     @OneToMany(mappedBy = "blockEntity")
-    private List<ClassEntity> classEntities;
+    private List<ClassEntity> classes;
 
 }
