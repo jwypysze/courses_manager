@@ -1,5 +1,7 @@
 package com.example.coursesmanagement.model.entity;
 
+import com.example.coursesmanagement.model.dto.CourseDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,5 +33,12 @@ public class CourseEntity {
 
     public CourseEntity(String title) {
         this.title = title;
+    }
+
+    @JsonIgnore
+    public static CourseEntity toNewEntity(CourseDto source) {
+        return CourseEntity.builder()
+                .title(source.getTitle())
+                .build();
     }
 }

@@ -1,5 +1,7 @@
 package com.example.coursesmanagement.model.entity;
 
+import com.example.coursesmanagement.model.dto.ClassDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,4 +41,11 @@ public class ClassEntity {
         this.date = date;
     }
 
+    @JsonIgnore
+    public static ClassEntity toNewEntity(ClassDto source) {
+        return ClassEntity.builder()
+                .topic(source.getTopic())
+                .date(source.getDate())
+                .build();
+    }
 }

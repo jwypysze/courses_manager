@@ -1,7 +1,9 @@
 package com.example.coursesmanagement.model.entity;
 
+import com.example.coursesmanagement.model.dto.UserDto;
 import com.example.coursesmanagement.model.enums.ActiveUser;
 import com.example.coursesmanagement.model.enums.UserType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -54,6 +56,18 @@ public class UserEntity {
         this.name = name;
         this.surname = surname;
         this.activeUser = activeUser;
+    }
+
+    @JsonIgnore
+    public static UserEntity toNewEntity(UserDto source) {
+        return UserEntity.builder()
+                .login(source.getLogin())
+                .password(source.getPassword())
+                .userType(source.getUserType())
+                .name(source.getName())
+                .surname(source.getSurname())
+                .activeUser(source.getActiveUser())
+                .build();
     }
 
 }

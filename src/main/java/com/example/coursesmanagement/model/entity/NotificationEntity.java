@@ -1,5 +1,7 @@
 package com.example.coursesmanagement.model.entity;
 
+import com.example.coursesmanagement.model.dto.NotificationDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,6 +38,14 @@ public class NotificationEntity {
     public NotificationEntity(String topic, String text) {
         this.topic = topic;
         this.text = text;
+    }
+
+    @JsonIgnore
+    public static NotificationEntity toNewEntity(NotificationDto source) {
+        return NotificationEntity.builder()
+                .topic(source.getTopic())
+                .text(source.getText())
+                .build();
     }
 
 }
