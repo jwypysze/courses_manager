@@ -38,12 +38,22 @@ public class UserEntity {
 
     @Column(name = "is_active")
     @Enumerated(EnumType.STRING)
-    private ActiveUser ActiveUser;
+    private ActiveUser activeUser;
 
     @OneToMany(mappedBy = "userEntity")
-    private List<UserRegistrationEntity> userRegistrations;
+    private List<RegistrationEntity> userRegistrations;
 
     @ManyToMany
     private List<NotificationEntity> notifications;
+
+    public UserEntity
+            (String login, String password, UserType userType, String name, String surname, ActiveUser activeUser) {
+        this.login = login;
+        this.password = password;
+        this.userType = userType;
+        this.name = name;
+        this.surname = surname;
+        this.activeUser = activeUser;
+    }
 
 }

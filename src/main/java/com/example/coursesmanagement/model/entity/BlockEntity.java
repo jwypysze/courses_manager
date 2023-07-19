@@ -30,4 +30,8 @@ public class BlockEntity {
     @OneToMany(mappedBy = "blockEntity")
     private List<ClassEntity> classes;
 
+    public BlockEntity(String blockTitle) {
+        this.blockTitle = blockTitle;
+    }
+
 }

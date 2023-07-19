@@ -34,4 +34,9 @@ public class ClassEntity {
     @OneToMany(mappedBy = "classEntity")
     private List<NotificationEntity> notifications;
 
+    public ClassEntity(String topic, LocalDateTime date) {
+        this.topic = topic;
+        this.date = date;
+    }
+
 }

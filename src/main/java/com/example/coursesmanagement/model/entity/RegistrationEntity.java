@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserRegistrationEntity {
+public class RegistrationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

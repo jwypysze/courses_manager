@@ -33,4 +33,9 @@ public class NotificationEntity {
     @ManyToMany(mappedBy = "notifications")
     private  List<UserEntity> users;
 
+    public NotificationEntity(String topic, String text) {
+        this.topic = topic;
+        this.text = text;
+    }
+
 }

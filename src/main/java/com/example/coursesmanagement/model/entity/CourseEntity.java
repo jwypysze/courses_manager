@@ -24,8 +24,12 @@ public class CourseEntity {
     private String title;
 
     @OneToMany(mappedBy = "courseEntity")
-    private List<UserRegistrationEntity> userRegistrations;
+    private List<RegistrationEntity> userRegistrations;
 
     @OneToMany(mappedBy = "courseEntity")
     private List<BlockEntity> blocks;
+
+    public CourseEntity(String title) {
+        this.title = title;
+    }
 }
