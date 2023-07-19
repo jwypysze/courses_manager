@@ -30,4 +30,7 @@ public class NotificationEntity {
     @Column(name = "text")
     private String text;
 
+    @ManyToMany(mappedBy = "notifications")
+    private  List<UserEntity> users;
+
 }

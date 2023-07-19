@@ -47,7 +47,10 @@ CREATE TABLE IF NOT EXISTS notifications(
     CONSTRAINT notifications_to_classes_fk FOREIGN KEY (class_id) REFERENCES classes(id)
 );
 
-
+CREATE TABLE IF NOT EXISTS users_notifications(
+    users_id BIGINT NOT NULL,
+    notifications_id BIGINT NOT NULL
+);
 
 
 

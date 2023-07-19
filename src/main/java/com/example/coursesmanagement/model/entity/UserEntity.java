@@ -43,4 +43,7 @@ public class UserEntity {
     @OneToMany(mappedBy = "userEntity")
     private List<UserRegistrationEntity> userRegistrations;
 
+    @ManyToMany
+    private List<NotificationEntity> notifications;
+
 }
