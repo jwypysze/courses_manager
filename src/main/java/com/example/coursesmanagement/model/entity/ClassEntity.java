@@ -4,7 +4,6 @@ import com.example.coursesmanagement.model.dto.ClassDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +15,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class ClassEntity {
 
     @Id
@@ -41,11 +39,4 @@ public class ClassEntity {
         this.date = date;
     }
 
-    @JsonIgnore
-    public static ClassEntity toNewEntity(ClassDto source) {
-        return ClassEntity.builder()
-                .topic(source.getTopic())
-                .date(source.getDate())
-                .build();
-    }
 }

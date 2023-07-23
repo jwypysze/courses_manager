@@ -1,17 +1,14 @@
 package com.example.coursesmanagement.service;
 
-import com.example.coursesmanagement.model.dto.UserDto;
+import com.example.coursesmanagement.repository.UserJpaRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
+@Service
+@RequiredArgsConstructor
+public class UserService {
 
-public interface UserService {
+    private final UserJpaRepository userJpaRepository;
 
-    UserDto saveUser(UserDto userDto);
 
-    List<UserDto> findAllUsers();
-
-    UserDto updateUser(UserDto userDto);
-
-    UserDto findUserById(Long id);
-    void deleteUserById(Long id);
 }

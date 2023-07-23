@@ -1,14 +1,14 @@
 package com.example.coursesmanagement.model.dto;
 
-import com.example.coursesmanagement.model.entity.UserEntity;
 import com.example.coursesmanagement.model.enums.ActiveUser;
 import com.example.coursesmanagement.model.enums.UserType;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto {
@@ -21,16 +21,5 @@ public class UserDto {
     private String surname;
     private ActiveUser activeUser;
 
-    @JsonIgnore
-    public static UserDto from(UserEntity source) {
-        return UserDto.builder()
-                .id(source.getId())
-                .login(source.getLogin())
-                .password(source.getPassword())
-                .userType(source.getUserType())
-                .name(source.getName())
-                .surname(source.getSurname())
-                .activeUser(source.getActiveUser())
-                .build();
-    }
+
 }

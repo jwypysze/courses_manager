@@ -1,10 +1,7 @@
 package com.example.coursesmanagement.model.entity;
 
-import com.example.coursesmanagement.model.dto.RegistrationDto;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -16,7 +13,6 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class RegistrationEntity {
 
     @Id
@@ -34,13 +30,5 @@ public class RegistrationEntity {
     @ManyToOne
     @JoinColumn(name = "course_id")
     private CourseEntity courseEntity;
-
-    @JsonIgnore
-    public static RegistrationEntity toNewEntity(RegistrationDto source) {
-        return RegistrationEntity.builder()
-                .userEntity(source.getUserEntity())
-                .courseEntity(source.getCourseEntity())
-                .build();
-    }
 
 }

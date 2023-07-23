@@ -4,7 +4,6 @@ import com.example.coursesmanagement.model.dto.CourseDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,7 +14,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class CourseEntity {
 
     @Id
@@ -35,10 +33,4 @@ public class CourseEntity {
         this.title = title;
     }
 
-    @JsonIgnore
-    public static CourseEntity toNewEntity(CourseDto source) {
-        return CourseEntity.builder()
-                .title(source.getTitle())
-                .build();
-    }
 }

@@ -1,14 +1,14 @@
 package com.example.coursesmanagement.model.dto;
 
-import com.example.coursesmanagement.model.entity.ClassEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ClassDto {
@@ -17,12 +17,5 @@ public class ClassDto {
     private String topic;
     private LocalDateTime date;
 
-    @JsonIgnore
-    public static ClassDto from(ClassEntity source) {
-        return ClassDto.builder()
-                .id(source.getId())
-                .topic(source.getTopic())
-                .date(source.getDate())
-                .build();
-    }
+
 }

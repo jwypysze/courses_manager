@@ -1,9 +1,14 @@
 package com.example.coursesmanagement.service;
 
-import com.example.coursesmanagement.model.dto.CourseDto;
+import com.example.coursesmanagement.repository.CourseJpaRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
-public interface CourseService {
+@Service
+@RequiredArgsConstructor
+public class CourseService {
 
-    CourseDto saveCourse(CourseDto courseDto);
-    CourseDto findCourseById(Long id);
+    private final CourseJpaRepository courseJpaRepository;
+
+
 }

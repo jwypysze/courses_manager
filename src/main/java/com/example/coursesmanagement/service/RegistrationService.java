@@ -1,8 +1,12 @@
 package com.example.coursesmanagement.service;
 
-import com.example.coursesmanagement.model.dto.RegistrationDto;
+import com.example.coursesmanagement.repository.RegistrationJpaRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
-public interface RegistrationService {
+@Service
+@RequiredArgsConstructor
+public class RegistrationService {
 
-    RegistrationDto saveRegistration(RegistrationDto registrationDto);
+    private final RegistrationJpaRepository registrationJpaRepository;
 }
