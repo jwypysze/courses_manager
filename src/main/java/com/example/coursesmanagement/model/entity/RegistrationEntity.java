@@ -1,5 +1,7 @@
 package com.example.coursesmanagement.model.entity;
 
+import com.example.coursesmanagement.model.dto.RegistrationDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,5 +34,13 @@ public class RegistrationEntity {
     @ManyToOne
     @JoinColumn(name = "course_id")
     private CourseEntity courseEntity;
+
+    @JsonIgnore
+    public static RegistrationEntity toNewEntity(RegistrationDto source) {
+        return RegistrationEntity.builder()
+                .userEntity(source.getUserEntity())
+                .courseEntity(source.getCourseEntity())
+                .build();
+    }
 
 }

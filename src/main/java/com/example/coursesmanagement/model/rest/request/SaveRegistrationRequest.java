@@ -1,34 +1,28 @@
-package com.example.coursesmanagement.model.dto;
+package com.example.coursesmanagement.model.rest.request;
 
+import com.example.coursesmanagement.model.dto.RegistrationDto;
 import com.example.coursesmanagement.model.entity.CourseEntity;
-import com.example.coursesmanagement.model.entity.RegistrationEntity;
 import com.example.coursesmanagement.model.entity.UserEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class RegistrationDto {
+@AllArgsConstructor
+@Builder
+public class SaveRegistrationRequest {
 
-    private Long id;
-    private LocalDateTime registrationDate;
     private UserEntity userEntity;
     private CourseEntity courseEntity;
 
+
     @JsonIgnore
-    public static RegistrationDto from(RegistrationEntity source) {
+    public static RegistrationDto toDto(SaveRegistrationRequest source) {
         return RegistrationDto.builder()
-                .id(source.getId())
-                .registrationDate(source.getRegistrationDate())
                 .userEntity(source.getUserEntity())
                 .courseEntity(source.getCourseEntity())
                 .build();
     }
-
 
 }
