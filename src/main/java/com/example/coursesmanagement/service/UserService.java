@@ -9,4 +9,6 @@ public interface UserService {
     UserDto saveUser(UserDto userDto);
 
     List<UserDto> findAllUsers();
+
+    UserDto updateUser(UserDto userDto);
 }

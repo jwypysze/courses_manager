@@ -1,5 +1,6 @@
 package com.example.coursesmanagement.service;
 
+import com.example.coursesmanagement.exception.exceptions.EntityNotFoundException;
 import com.example.coursesmanagement.model.dto.UserDto;
 import com.example.coursesmanagement.model.entity.UserEntity;
 import com.example.coursesmanagement.repository.UserJpaRepository;
@@ -27,5 +28,19 @@ public class UserServiceImpl implements UserService{
         return userJpaRepository.findAll().stream()
                 .map(user -> UserDto.from(user))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public UserDto updateUser(UserDto userDto) {
+        return UserDto.from(userJpaRepository.findById(userDto.getId())
+                .map(userEntity -> {
+                    userEntity.setLogin(userDto.getLogin());
+                    userEntity.setPassword(userDto.getPassword());
+                    userEntity.setUserType((userDto.getUserType()));
+                    userEntity.setName(userDto.getName());
+                    userEntity.setSurname(userDto.getSurname());
+                    userEntity.setActiveUser(userDto.getActiveUser());
+                    return userEntity;
+                }).orElseThrow(() -> new EntityNotFoundException(UserEntity.class, userDto.getId())));
     }
 }
