@@ -43,4 +43,13 @@ public class UserServiceImpl implements UserService{
                     return userEntity;
                 }).orElseThrow(() -> new EntityNotFoundException(UserEntity.class, userDto.getId())));
     }
+
+    @Override
+    public UserDto findUserById(Long id) {
+        return UserDto.from(userJpaRepository.findById(id).orElseThrow(() ->
+            new EntityNotFoundException(UserEntity.class, id)
+        ));
+    }
+
+
 }

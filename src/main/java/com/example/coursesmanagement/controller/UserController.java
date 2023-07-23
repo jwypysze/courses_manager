@@ -19,6 +19,7 @@ public class UserController {
     public final static String SAVE_USER = "/save";
     public static final String FIND_ALL_USERS = "/findall";
     public static final String UPDATE_USER = "/update";
+    public static final String FIND_USER_BY_ID = "/{id}";
     private final UserService userService;
 
     @GetMapping(FIND_ALL_USERS)
@@ -35,5 +36,10 @@ public class UserController {
     @PutMapping(UPDATE_USER)
     public ResponseEntity<UserResponse> updateUser(@RequestBody UpdateUserRequest user) {
         return ResponseEntity.ok(UserResponse.from(userService.updateUser(UpdateUserRequest.toDto(user))));
+    }
+
+    @GetMapping(FIND_USER_BY_ID)
+    public ResponseEntity<UserResponse> findUserById(@PathVariable Long id) {
+        return ResponseEntity.ok(UserResponse.from(userService.findUserById(id)));
     }
 }
