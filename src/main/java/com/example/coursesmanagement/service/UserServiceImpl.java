@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,6 +50,12 @@ public class UserServiceImpl implements UserService{
         return UserDto.from(userJpaRepository.findById(id).orElseThrow(() ->
             new EntityNotFoundException(UserEntity.class, id)
         ));
+    }
+
+    @Override
+    public void deleteUserById(Long id) {
+        userJpaRepository.delete(userJpaRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException(UserEntity.class, id)));
     }
 
 
