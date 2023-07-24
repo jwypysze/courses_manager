@@ -1,7 +1,5 @@
 package com.example.coursesmanagement.model.entity;
 
-import com.example.coursesmanagement.model.dto.ClassDto;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

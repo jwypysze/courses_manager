@@ -1,11 +1,31 @@
 package com.example.coursesmanagement.controller;
 
+import com.example.coursesmanagement.model.dto.UserDto;
+import com.example.coursesmanagement.service.UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
+
+import static com.example.coursesmanagement.controller.ApiConstraints.USER;
+
+@Controller
+@RequestMapping(USER)
+@RequiredArgsConstructor
 public class UserController {
 
-    public final static String SAVE_USER = "/save";
-    public static final String FIND_ALL_USERS = "/findall";
-    public static final String UPDATE_USER = "/update";
-    public static final String FIND_USER_BY_ID = "/{id}";
-    public static final String DELETE_USER_BY_ID = "/{id}";
+    private static final String ALL_USERS = "/all";
+
+    private final UserService userService;
+
+    @GetMapping(ALL_USERS)
+    public String getAllUsers(Model model) {
+        List<UserDto> allUsers = userService.getAllUsers();
+        model.addAttribute("users", allUsers);
+        return "allUsers";
+    }
 
 }
