@@ -10,10 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-import static com.example.coursesmanagement.controller.ApiConstraints.USER;
 
 @Controller
-@RequestMapping(USER)
+@RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
 

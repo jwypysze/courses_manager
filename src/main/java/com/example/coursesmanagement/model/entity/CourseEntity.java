@@ -27,8 +27,16 @@ public class CourseEntity {
     @OneToMany(mappedBy = "courseEntity")
     private List<BlockEntity> blocks;
 
+    @Column(name = "image_name")
+    private String imageName;
+
     public CourseEntity(String title) {
         this.title = title;
+    }
+
+    public CourseEntity(String title, String imageName) {
+        this.title = title;
+        this.imageName = imageName;
     }
 
 }
