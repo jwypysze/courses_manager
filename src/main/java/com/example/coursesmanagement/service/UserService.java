@@ -26,4 +26,10 @@ public class UserService {
     }
 
 
+    public void addUser(UserDto userDto) {
+        UserEntity userEntity = new UserEntity
+                (userDto.getLogin(), userDto.getPassword(), userDto.getUserType(),
+                        userDto.getName(), userDto.getSurname(), userDto.getActiveUser());
+        userJpaRepository.save(userEntity);
+    }
 }

@@ -14,19 +14,14 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/courses")
+@RequestMapping("/all-courses")
 @RequiredArgsConstructor
 @Slf4j
 public class CourseController {
 
     private final CourseService courseService;
 
-    @GetMapping
-    public String courses(Model model) {
-        List<CourseDto> coursesFromDb = courseService.getCourses();
-        model.addAttribute("courses", coursesFromDb);
-        return "courses";
-    }
+
 
 
     @GetMapping("/course-details")
