@@ -28,9 +28,14 @@ public class BlockEntity {
     @OneToMany(mappedBy = "blockEntity")
     private List<ClassEntity> classes;
 
+
     public BlockEntity(String blockTitle) {
         this.blockTitle = blockTitle;
     }
 
 
+    public BlockEntity(String blockTitle, CourseEntity courseEntity) {
+        this.blockTitle = blockTitle;
+        this.courseEntity = courseEntity;
+    }
 }

@@ -1,7 +1,9 @@
 package com.example.coursesmanagement.controller;
 
+import com.example.coursesmanagement.model.dto.BlockDto;
 import com.example.coursesmanagement.model.dto.CourseDto;
 import com.example.coursesmanagement.model.dto.UserDto;
+import com.example.coursesmanagement.service.BlockService;
 import com.example.coursesmanagement.service.CourseService;
 import com.example.coursesmanagement.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ import java.util.List;
 public class AdminController {
     private final CourseService courseService;
     private final UserService userService;
+    private final BlockService blockService;
 
     @GetMapping
     public String getAdminView() {
@@ -78,6 +81,18 @@ public class AdminController {
         List<CourseDto> coursesFromDb = courseService.getCourses();
         model.addAttribute("courses", coursesFromDb);
         return "all-courses-for-admin";
+    }
+
+    @GetMapping("/blocks")
+    public String getAddBlockView(Model model) {
+        model.addAttribute("newBlock", new BlockDto());
+        return "add-block";
+    }
+
+    @PostMapping("/blocks/add")
+    public String addBlock(BlockDto blockDto) {
+        blockService.addBlock(blockDto);
+        return "redirect:/admin/blocks/add-block-summary";
     }
 
 }
