@@ -15,11 +15,22 @@ public class BlockDto {
     private Long id;
     private String blockTitle;
     private CourseEntity courseEntity;
+    private String courseTitle;
     private Long courseId;
 
-    public BlockDto(String blockTitle, Long courseId) {
+    public BlockDto(String blockTitle) {
         this.blockTitle = blockTitle;
-        this.courseId = courseId;
     }
 
+    public BlockDto(Long id, String blockTitle, String courseTitle) {
+        this.id = id;
+        this.blockTitle = blockTitle;
+        this.courseTitle = courseTitle;
+    }
+
+    public BlockDto(Long id, String blockTitle, CourseEntity courseEntity) {
+        this.id = id;
+        this.blockTitle = blockTitle;
+        this.courseEntity = courseEntity;
+    }
 }

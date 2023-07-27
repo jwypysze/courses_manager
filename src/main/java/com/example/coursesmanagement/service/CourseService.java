@@ -1,5 +1,7 @@
 package com.example.coursesmanagement.service;
 
+import com.example.coursesmanagement.exception.exceptions.EntityNotFoundException;
+import com.example.coursesmanagement.model.dto.BlockDto;
 import com.example.coursesmanagement.model.dto.CourseDto;
 import com.example.coursesmanagement.model.entity.CourseEntity;
 import com.example.coursesmanagement.repository.CourseJpaRepository;
@@ -13,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -36,11 +39,18 @@ public class CourseService {
         }
     }
 
-    public List<CourseDto> getCourses() {
+    public List<CourseDto> allCourses() {
         return courseJpaRepository.findAll().stream()
                 .map(courseEntity ->
                         new CourseDto(courseEntity.getId(), courseEntity.getTitle(),
                                 courseEntity.getImageName())).toList();
+    }
+
+    public CourseDto findCourseById(BlockDto blockDto) {
+        CourseEntity courseEntity = courseJpaRepository.findById(blockDto.getCourseEntity().getId())
+                .orElseThrow(() -> new EntityNotFoundException
+                        (CourseEntity.class, blockDto.getCourseEntity().getId()));
+        return new CourseDto(courseEntity.getId(), courseEntity.getTitle(), courseEntity.getImageName());
     }
 
 

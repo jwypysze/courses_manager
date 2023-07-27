@@ -1,6 +1,7 @@
 package com.example.coursesmanagement.controller;
 
 import com.example.coursesmanagement.model.dto.BlockDto;
+import com.example.coursesmanagement.model.dto.ClassDto;
 import com.example.coursesmanagement.model.dto.CourseDto;
 import com.example.coursesmanagement.model.dto.UserDto;
 import com.example.coursesmanagement.service.BlockService;
@@ -9,12 +10,10 @@ import com.example.coursesmanagement.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -78,7 +77,7 @@ public class AdminController {
 
     @GetMapping("/all-courses-for-admin")
     public String getAllCourses(Model model) {
-        List<CourseDto> coursesFromDb = courseService.getCourses();
+        List<CourseDto> coursesFromDb = courseService.allCourses();
         model.addAttribute("courses", coursesFromDb);
         return "all-courses-for-admin";
     }
@@ -86,7 +85,7 @@ public class AdminController {
     @GetMapping("/blocks")
     public String getAddBlockView(Model model) {
         model.addAttribute("newBlock", new BlockDto());
-        List<CourseDto> coursesFromDb = courseService.getCourses();
+        List<CourseDto> coursesFromDb = courseService.allCourses();
         model.addAttribute("courses", coursesFromDb);
         return "add-block";
     }
@@ -94,12 +93,27 @@ public class AdminController {
     @PostMapping("/blocks/add")
     public String addBlock(BlockDto blockDto) {
         blockService.addBlock(blockDto);
-        return "redirect:/admin/blocks/add-block-summary.html";
+        return "redirect:/admin/blocks/add-block-summary";
     }
 
     @GetMapping("/blocks/add-block-summary.html")
     public String showAddBlockSummary() {
-        return "add-block-summary.html";
+        return "add-block-summary";
+    }
+
+    @GetMapping("/all-blocks")
+    public String getAllBlocks(Model model) {
+        List<BlockDto> allBlocks = blockService.getAllBlocks();
+        model.addAttribute("blocks", allBlocks);
+        return "all-blocks";
+    }
+
+    @GetMapping("/classes")
+    public String getAddClassView(Model model) {
+        model.addAttribute("newClass", new ClassDto());
+        //TODO
+        return "add-class";
+
     }
 
 }

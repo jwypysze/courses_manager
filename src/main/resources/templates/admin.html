@@ -46,6 +46,11 @@
                     <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: darkcyan">Add new block</button>
                 </form>
             </td>
+            <td>
+                <form th:action="@{/admin/all-blocks}" th:object="${blocks}" enctype="multipart/form-data">
+                    <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: magenta">Show blocks</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

@@ -9,6 +9,7 @@ import com.example.coursesmanagement.repository.CourseJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,11 +21,26 @@ public class BlockService {
 
     public void addBlock(BlockDto blockDto) {
         Optional<CourseEntity> courseById =
-                courseJpaRepository.findById(blockDto.getCourseId());
+                courseJpaRepository.findById(blockDto.getCourseEntity().getId());
         CourseEntity courseEntity = courseById.orElseThrow(() ->
-                new EntityNotFoundException(CourseEntity.class, blockDto.getCourseId()));
+                new EntityNotFoundException(CourseEntity.class, blockDto.getCourseEntity().getId()));
         BlockEntity  blockEntity= new BlockEntity(blockDto.getBlockTitle(), courseEntity);
         blockJpaRepository.save(blockEntity);
     }
 
+    public List<BlockDto> getAllBlocks() {
+        return blockJpaRepository.findAll().stream()
+                .map(blockEntity ->
+                    new BlockDto
+                            (blockEntity.getId(), blockEntity.getBlockTitle(),
+                                    blockEntity.getCourseEntity().getTitle())
+                ).toList();
+    }
+
+    public BlockDto getBlockById(Long blockId) {
+        BlockEntity blockEntity = blockJpaRepository.findById(blockId)
+                .orElseThrow(() -> new EntityNotFoundException(BlockEntity.class, blockId));
+        return new BlockDto(blockEntity.getId(), blockEntity.getBlockTitle(),
+                blockEntity.getCourseEntity());
+    }
 }
