@@ -37,4 +37,9 @@ public class ClassEntity {
         this.date = date;
     }
 
+    public ClassEntity (String topic, LocalDateTime date, BlockEntity blockEntity) {
+        this.topic = topic;
+        this.date = date;
+        this.blockEntity = blockEntity;
+    }
 }

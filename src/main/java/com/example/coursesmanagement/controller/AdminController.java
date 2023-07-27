@@ -5,6 +5,7 @@ import com.example.coursesmanagement.model.dto.ClassDto;
 import com.example.coursesmanagement.model.dto.CourseDto;
 import com.example.coursesmanagement.model.dto.UserDto;
 import com.example.coursesmanagement.service.BlockService;
+import com.example.coursesmanagement.service.ClassService;
 import com.example.coursesmanagement.service.CourseService;
 import com.example.coursesmanagement.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ public class AdminController {
     private final CourseService courseService;
     private final UserService userService;
     private final BlockService blockService;
+    private final ClassService classService;
 
     @GetMapping
     public String getAdminView() {
@@ -96,7 +98,7 @@ public class AdminController {
         return "redirect:/admin/blocks/add-block-summary";
     }
 
-    @GetMapping("/blocks/add-block-summary.html")
+    @GetMapping("/blocks/add-block-summary")
     public String showAddBlockSummary() {
         return "add-block-summary";
     }
@@ -111,9 +113,20 @@ public class AdminController {
     @GetMapping("/classes")
     public String getAddClassView(Model model) {
         model.addAttribute("newClass", new ClassDto());
-        //TODO
+        List<BlockDto> allBlocks = blockService.getAllBlocks();
+        model.addAttribute("blocks", allBlocks);
         return "add-class";
+    }
 
+    @PostMapping("/classes/add")
+    public String addClass(ClassDto classDto) {
+        classService.addClass(classDto);
+        return "redirect:/admin/classes/add-class-summary";
+    }
+
+    @GetMapping("/classes/add-class-summary")
+    public String showAddClassSummary() {
+        return "add-class-summary";
     }
 
 }
