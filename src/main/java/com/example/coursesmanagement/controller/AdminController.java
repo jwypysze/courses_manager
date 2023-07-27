@@ -86,13 +86,20 @@ public class AdminController {
     @GetMapping("/blocks")
     public String getAddBlockView(Model model) {
         model.addAttribute("newBlock", new BlockDto());
+        List<CourseDto> coursesFromDb = courseService.getCourses();
+        model.addAttribute("courses", coursesFromDb);
         return "add-block";
     }
 
     @PostMapping("/blocks/add")
     public String addBlock(BlockDto blockDto) {
         blockService.addBlock(blockDto);
-        return "redirect:/admin/blocks/add-block-summary";
+        return "redirect:/admin/blocks/add-block-summary.html";
+    }
+
+    @GetMapping("/blocks/add-block-summary.html")
+    public String showAddBlockSummary() {
+        return "add-block-summary.html";
     }
 
 }
