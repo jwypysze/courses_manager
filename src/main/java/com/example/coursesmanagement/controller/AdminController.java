@@ -132,6 +132,25 @@ public class AdminController {
         return "all-blocks";
     }
 
+    @GetMapping("/blocks/delete-block")
+    public String getDeleteBlockView(BlockDto blockDto, Model model) {
+        List<BlockDto> allBlocks = blockService.getAllBlocks();
+        model.addAttribute("blocks", allBlocks);
+        model.addAttribute("blockToDelete", blockDto);
+        return "delete-block";
+    }
+
+    @PostMapping("/blocks/delete")
+    public String deleteBlockById(BlockDto blockDto) {
+        blockService.deleteBlockById(blockDto);
+        return "redirect:/admin/blocks/delete-block-summary";
+    }
+
+    @GetMapping("/blocks/delete-block-summary")
+    public String showDeleteBlockSummary() {
+        return "delete-block-summary";
+    }
+
     @GetMapping("/classes")
     public String getAddClassView(Model model) {
         model.addAttribute("newClass", new ClassDto());

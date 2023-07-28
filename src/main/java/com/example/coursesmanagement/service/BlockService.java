@@ -6,6 +6,7 @@ import com.example.coursesmanagement.model.dto.CourseDto;
 import com.example.coursesmanagement.model.entity.BlockEntity;
 import com.example.coursesmanagement.model.entity.CourseEntity;
 import com.example.coursesmanagement.repository.BlockJpaRepository;
+import com.example.coursesmanagement.repository.ClassJpaRepository;
 import com.example.coursesmanagement.repository.CourseJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ public class BlockService {
 
     private final BlockJpaRepository blockJpaRepository;
     private final CourseJpaRepository courseJpaRepository;
+    private final ClassJpaRepository classJpaRepository;
 
     public void addBlock(BlockDto blockDto) {
         Optional<CourseEntity> courseById =
@@ -48,5 +50,16 @@ public class BlockService {
     public List<Long> findBlocksByCourse(CourseEntity courseEntity) {
         List<Long> blocksIdByCourse = blockJpaRepository.findBlocksByCourse(courseEntity);
         return blocksIdByCourse;
+    }
+
+    public void deleteBlockById(BlockDto blockDto) {
+        BlockEntity blockEntity =
+                blockJpaRepository.findById(blockDto.getId())
+                        .orElseThrow(() ->
+                                new EntityNotFoundException(BlockEntity.class, blockDto.getId()));
+        List<Long> classesIdByBlock = classJpaRepository.findClassesByBlock(blockEntity);
+        classesIdByBlock.stream()
+                .forEach(classId -> classJpaRepository.deleteById(classId));
+        blockJpaRepository.delete(blockEntity);
     }
 }
