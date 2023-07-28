@@ -6,12 +6,11 @@ import com.example.coursesmanagement.model.entity.BlockEntity;
 import com.example.coursesmanagement.model.entity.ClassEntity;
 import com.example.coursesmanagement.repository.BlockJpaRepository;
 import com.example.coursesmanagement.repository.ClassJpaRepository;
-import jakarta.transaction.Transactional;
+import com.example.coursesmanagement.repository.NotificationJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +18,7 @@ public class ClassService {
 
     private final ClassJpaRepository classJpaRepository;
     private final BlockJpaRepository blockJpaRepository;
+    private final NotificationJpaRepository notificationJpaRepository;
     public void addClass(ClassDto classDto) {
         BlockEntity blockEntity = blockJpaRepository.findById(classDto.getBlockId())
                 .orElseThrow(() -> new EntityNotFoundException
@@ -44,6 +44,10 @@ public class ClassService {
     public void deleteClassById(ClassDto classDto) {
         ClassEntity classEntity = classJpaRepository.findById(classDto.getId())
                 .orElseThrow(() -> new EntityNotFoundException(ClassEntity.class, classDto.getId()));
+        List<Long> notificationsByClass =
+                notificationJpaRepository.findNotificationsByClass(classEntity);
+        notificationsByClass.stream()
+                        .forEach(notificationId -> notificationJpaRepository.deleteById(notificationId));
         classJpaRepository.delete(classEntity);
     }
 }

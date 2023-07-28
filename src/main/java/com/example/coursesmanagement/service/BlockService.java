@@ -2,13 +2,15 @@ package com.example.coursesmanagement.service;
 
 import com.example.coursesmanagement.exception.exceptions.EntityNotFoundException;
 import com.example.coursesmanagement.model.dto.BlockDto;
-import com.example.coursesmanagement.model.dto.CourseDto;
 import com.example.coursesmanagement.model.entity.BlockEntity;
+import com.example.coursesmanagement.model.entity.ClassEntity;
 import com.example.coursesmanagement.model.entity.CourseEntity;
 import com.example.coursesmanagement.repository.BlockJpaRepository;
 import com.example.coursesmanagement.repository.ClassJpaRepository;
 import com.example.coursesmanagement.repository.CourseJpaRepository;
+import com.example.coursesmanagement.repository.NotificationJpaRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.propertyeditors.ClassEditor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +23,7 @@ public class BlockService {
     private final BlockJpaRepository blockJpaRepository;
     private final CourseJpaRepository courseJpaRepository;
     private final ClassJpaRepository classJpaRepository;
+    private final NotificationJpaRepository notificationJpaRepository;
 
     public void addBlock(BlockDto blockDto) {
         Optional<CourseEntity> courseById =
@@ -58,6 +61,14 @@ public class BlockService {
                         .orElseThrow(() ->
                                 new EntityNotFoundException(BlockEntity.class, blockDto.getId()));
         List<Long> classesIdByBlock = classJpaRepository.findClassesByBlock(blockEntity);
+        for(Long classId : classesIdByBlock) {
+            ClassEntity classEntity = classJpaRepository.findById(classId)
+                    .orElseThrow(() -> new EntityNotFoundException(ClassEditor.class, classId));
+            List<Long> notificationsIdByClass =
+                    notificationJpaRepository.findNotificationsByClass(classEntity);
+            notificationsIdByClass.stream()
+                    .forEach(notificationId -> notificationJpaRepository.deleteById(notificationId));
+        }
         classesIdByBlock.stream()
                 .forEach(classId -> classJpaRepository.deleteById(classId));
         blockJpaRepository.delete(blockEntity);
