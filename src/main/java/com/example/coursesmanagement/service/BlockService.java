@@ -2,6 +2,7 @@ package com.example.coursesmanagement.service;
 
 import com.example.coursesmanagement.exception.exceptions.EntityNotFoundException;
 import com.example.coursesmanagement.model.dto.BlockDto;
+import com.example.coursesmanagement.model.dto.CourseDto;
 import com.example.coursesmanagement.model.entity.BlockEntity;
 import com.example.coursesmanagement.model.entity.CourseEntity;
 import com.example.coursesmanagement.repository.BlockJpaRepository;
@@ -42,5 +43,10 @@ public class BlockService {
                 .orElseThrow(() -> new EntityNotFoundException(BlockEntity.class, blockId));
         return new BlockDto(blockEntity.getId(), blockEntity.getBlockTitle(),
                 blockEntity.getCourseEntity());
+    }
+
+    public List<Long> findBlocksByCourse(CourseEntity courseEntity) {
+        List<Long> blocksIdByCourse = blockJpaRepository.findBlocksByCourse(courseEntity);
+        return blocksIdByCourse;
     }
 }

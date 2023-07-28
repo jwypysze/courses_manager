@@ -36,4 +36,8 @@ public class ClassService {
                                 classEntity.getBlockEntity().getBlockTitle()))
                 .toList();
     }
+
+    public List<Long> findClassesByBlock(BlockEntity blockEntity) {
+        return classJpaRepository.findClassesByBlock(blockEntity);
+    }
 }

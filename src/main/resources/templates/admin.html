@@ -20,47 +20,52 @@
         <tbody>
         <tr>
             <td>
-                <form th:action="@{/admin/courses}" th:object="${newCourse}">
+                <form th:action="@{/admin/courses}">
                     <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: gold">Add new course</button>
                 </form>
             </td>
             <td>
-                <form th:action="@{/admin/all-users}" th:object="${users}">
+                <form th:action="@{/admin/all-users}">
                     <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: lawngreen">Show users</button>
                 </form>
             </td>
             <td>
-                <form th:action="@{/admin/users}" th:object="${newUser}">
+                <form th:action="@{/admin/users}">
                     <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: turquoise">Add new user</button>
                 </form>
             </td>
         </tr>
         <tr>
             <td>
-                <form th:action="@{/admin/all-courses-for-admin}" th:object="${courses}">
+                <form th:action="@{/admin/all-courses-for-admin}">
                     <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: salmon">Show courses</button>
                 </form>
             </td>
             <td>
-                <form th:action="@{/admin/blocks}" th:object="${newBlock}">
+                <form th:action="@{/admin/blocks}">
                     <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: darkcyan">Add new block</button>
                 </form>
             </td>
             <td>
-                <form th:action="@{/admin/all-blocks}" th:object="${blocks}">
+                <form th:action="@{/admin/all-blocks}">
                     <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: magenta">Show blocks</button>
                 </form>
             </td>
         </tr>
         <tr>
             <td>
-                <form th:action="@{/admin/classes}" th:object="${newClass}">
+                <form th:action="@{/admin/classes}">
                     <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: forestgreen">Add new class</button>
                 </form>
             </td>
             <td>
-                <form th:action="@{/admin/all-classes}" th:object="${classes}">
+                <form th:action="@{/admin/all-classes}">
                     <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: orangered">Show classes</button>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/admin/courses/delete-course}">
+                    <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: yellow; color: darkred">Delete course</button>
                 </form>
             </td>
         </tr>

@@ -3,7 +3,10 @@ package com.example.coursesmanagement.service;
 import com.example.coursesmanagement.exception.exceptions.EntityNotFoundException;
 import com.example.coursesmanagement.model.dto.BlockDto;
 import com.example.coursesmanagement.model.dto.CourseDto;
+import com.example.coursesmanagement.model.entity.BlockEntity;
 import com.example.coursesmanagement.model.entity.CourseEntity;
+import com.example.coursesmanagement.repository.BlockJpaRepository;
+import com.example.coursesmanagement.repository.ClassJpaRepository;
 import com.example.coursesmanagement.repository.CourseJpaRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +26,8 @@ import java.util.Optional;
 public class CourseService {
 
     private final CourseJpaRepository courseJpaRepository;
+    private final BlockJpaRepository blockJpaRepository;
+    private final ClassJpaRepository classJpaRepository;
 
     public void addCourse(CourseDto courseDto, MultipartFile file) {
         CourseEntity courseEntity = new CourseEntity(courseDto.getTitle(), courseDto.getImageName());
@@ -66,8 +71,17 @@ public class CourseService {
                         .orElseThrow(() -> new EntityNotFoundException(
                                 CourseEntity.class, courseDto.getId()));
 
-        //TODO jeśli z kursem powiązane są bloki i zajęcia to je usuń (BŁĄD - klucz obcy)
-
+        List<Long> blocksIdByCourse = blockJpaRepository.findBlocksByCourse(courseEntity);
+        for(Long blockId : blocksIdByCourse) {
+            BlockEntity blockEntityById = blockJpaRepository
+                    .findById(blockId)
+                    .orElseThrow(() -> new EntityNotFoundException(BlockEntity.class, blockId));
+            List<Long> classesIdByBlock = classJpaRepository.findClassesByBlock(blockEntityById);
+            classesIdByBlock.stream()
+                    .forEach(classId -> classJpaRepository.deleteById(classId));
+        }
+        blocksIdByCourse.stream()
+                .forEach(blockId -> blockJpaRepository.deleteById(blockId));
         courseJpaRepository.delete(courseEntity);
     }
 
