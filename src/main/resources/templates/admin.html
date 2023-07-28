@@ -20,46 +20,46 @@
         <tbody>
         <tr>
             <td>
-                <form th:action="@{/admin/courses}" th:object="${newCourse}" enctype="multipart/form-data">
+                <form th:action="@{/admin/courses}" th:object="${newCourse}">
                     <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: gold">Add new course</button>
                 </form>
             </td>
             <td>
-                <form th:action="@{/admin/all-users}" th:object="${users}" enctype="multipart/form-data">
+                <form th:action="@{/admin/all-users}" th:object="${users}">
                     <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: lawngreen">Show users</button>
                 </form>
             </td>
             <td>
-                <form th:action="@{/admin/users}" th:object="${newUser}" enctype="multipart/form-data">
+                <form th:action="@{/admin/users}" th:object="${newUser}">
                     <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: turquoise">Add new user</button>
                 </form>
             </td>
         </tr>
         <tr>
             <td>
-                <form th:action="@{/admin/all-courses-for-admin}" th:object="${courses}" enctype="multipart/form-data">
+                <form th:action="@{/admin/all-courses-for-admin}" th:object="${courses}">
                     <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: salmon">Show courses</button>
                 </form>
             </td>
             <td>
-                <form th:action="@{/admin/blocks}" th:object="${newBlock}" enctype="multipart/form-data">
+                <form th:action="@{/admin/blocks}" th:object="${newBlock}">
                     <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: darkcyan">Add new block</button>
                 </form>
             </td>
             <td>
-                <form th:action="@{/admin/all-blocks}" th:object="${blocks}" enctype="multipart/form-data">
+                <form th:action="@{/admin/all-blocks}" th:object="${blocks}">
                     <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: magenta">Show blocks</button>
                 </form>
             </td>
         </tr>
         <tr>
             <td>
-                <form th:action="@{/admin/classes}" th:object="${newClass}" enctype="multipart/form-data">
+                <form th:action="@{/admin/classes}" th:object="${newClass}">
                     <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: forestgreen">Add new class</button>
                 </form>
             </td>
             <td>
-                <form th:action="@{/admin/all-classes}" th:object="${classes}" enctype="multipart/form-data">
+                <form th:action="@{/admin/all-classes}" th:object="${classes}">
                     <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: orangered">Show classes</button>
                 </form>
             </td>

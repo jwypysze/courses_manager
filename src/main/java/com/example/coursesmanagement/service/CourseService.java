@@ -66,6 +66,8 @@ public class CourseService {
                         .orElseThrow(() -> new EntityNotFoundException(
                                 CourseEntity.class, courseDto.getId()));
 
+        //TODO jeśli z kursem powiązane są bloki i zajęcia to je usuń (BŁĄD - klucz obcy)
+
         courseJpaRepository.delete(courseEntity);
     }
 

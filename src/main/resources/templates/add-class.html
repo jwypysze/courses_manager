@@ -36,7 +36,7 @@
 
 <div class="container" style="margin-top:100px;">
     <div class="row">
-        <form th:action="@{/admin/classes/add}" th:object="${newClass}" method="post" enctype="multipart/form-data">
+        <form th:action="@{/admin/classes/add}" th:object="${newClass}" method="post">
             <div class="mb-3">
                 <label for="class-topic" class="form-label">Topic</label>
                 <input type="text" class="form-control" id="class-topic" th:field="*{topic}">

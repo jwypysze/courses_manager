@@ -34,7 +34,7 @@
 
 <div class="container" style="margin-top:100px;">
     <div class="row">
-        <form th:action="@{/admin/blocks/add}" th:object="${newBlock}" method="post" enctype="multipart/form-data">
+        <form th:action="@{/admin/blocks/add}" th:object="${newBlock}" method="post">
             <div class="mb-3">
                 <label for="block-title" class="form-label">Title</label>
                 <input type="text" class="form-control" id="block-title" th:field="*{blockTitle}">

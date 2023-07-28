@@ -13,7 +13,7 @@
 
 <div class="container" style="margin-top:100px;">
     <div class="row">
-        <form th:action="@{/admin/users/add}" th:object="${newUser}" method="post" enctype="multipart/form-data">
+        <form th:action="@{/admin/users/add}" th:object="${newUser}" method="post">
             <div class="mb-3">
                 <label for="login" class="form-label">Login</label>
                 <input type="text" class="form-control" id="login" th:field="*{login}">
