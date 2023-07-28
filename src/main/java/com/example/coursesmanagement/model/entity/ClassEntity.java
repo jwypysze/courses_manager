@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -23,7 +25,10 @@ public class ClassEntity {
     private String topic;
 
     @Column(name = "date")
-    private LocalDateTime date;
+    private LocalDate date;
+
+    @Column(name = "time")
+    private LocalTime time;
 
     @ManyToOne
     @JoinColumn(name = "block_id")
@@ -32,14 +37,16 @@ public class ClassEntity {
     @OneToMany(mappedBy = "classEntity")
     private List<NotificationEntity> notifications;
 
-    public ClassEntity(String topic, LocalDateTime date) {
+    public ClassEntity(String topic, LocalDate date, LocalTime time) {
         this.topic = topic;
         this.date = date;
+        this.time = time;
     }
 
-    public ClassEntity (String topic, LocalDateTime date, BlockEntity blockEntity) {
+    public ClassEntity (String topic, LocalDate date, LocalTime time, BlockEntity blockEntity) {
         this.topic = topic;
         this.date = date;
+        this.time = time;
         this.blockEntity = blockEntity;
     }
 }

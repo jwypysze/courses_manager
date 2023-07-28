@@ -22,7 +22,8 @@ public class ClassService {
         BlockEntity blockEntity = blockJpaRepository.findById(classDto.getBlockEntity().getId())
                 .orElseThrow(() -> new EntityNotFoundException
                         (BlockEntity.class, classDto.getBlockEntity().getId()));
-        ClassEntity classEntity = new ClassEntity(classDto.getTopic(), classDto.getDate(), blockEntity);
+        ClassEntity classEntity = new ClassEntity(classDto.getTopic(),
+                classDto.getDate(), classDto.getTime(), blockEntity);
         classJpaRepository.save(classEntity);
     }
 }
