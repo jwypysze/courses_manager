@@ -21,9 +21,9 @@ public class BlockService {
 
     public void addBlock(BlockDto blockDto) {
         Optional<CourseEntity> courseById =
-                courseJpaRepository.findById(blockDto.getCourseEntity().getId());
+                courseJpaRepository.findById(blockDto.getCourseId());
         CourseEntity courseEntity = courseById.orElseThrow(() ->
-                new EntityNotFoundException(CourseEntity.class, blockDto.getCourseEntity().getId()));
+                new EntityNotFoundException(CourseEntity.class, blockDto.getCourseId()));
         BlockEntity  blockEntity= new BlockEntity(blockDto.getBlockTitle(), courseEntity);
         blockJpaRepository.save(blockEntity);
     }

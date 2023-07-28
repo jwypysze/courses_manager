@@ -52,6 +52,18 @@
                 </form>
             </td>
         </tr>
+        <tr>
+            <td>
+                <form th:action="@{/admin/classes}" th:object="${newClass}" enctype="multipart/form-data">
+                    <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: forestgreen">Add new class</button>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/admin/all-classes}" th:object="${classes}" enctype="multipart/form-data">
+                    <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: orangered">Show classes</button>
+                </form>
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>

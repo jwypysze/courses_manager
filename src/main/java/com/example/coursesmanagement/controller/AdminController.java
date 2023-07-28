@@ -129,4 +129,10 @@ public class AdminController {
         return "add-class-summary";
     }
 
+    @GetMapping("/all-classes")
+    public String getAllClasses(Model model) {
+        List<ClassDto> allClasses = classService.getAllClasses();
+        model.addAttribute("classes", allClasses);
+        return "all-classes";
+    }
 }

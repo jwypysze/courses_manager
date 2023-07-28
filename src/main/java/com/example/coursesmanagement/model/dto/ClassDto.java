@@ -22,12 +22,21 @@ public class ClassDto {
     private LocalTime time;
     private Long blockId;
     private BlockEntity blockEntity;
+    private String blockTitle;
 
     public ClassDto(String topic, LocalDate date, LocalTime time, Long blockId) {
         this.topic = topic;
         this.date = date;
         this.time = time;
         this.blockId = blockId;
+    }
+
+    public ClassDto(Long id, String topic, LocalDate date, LocalTime time, String blockTitle) {
+        this.id = id;
+        this.topic = topic;
+        this.date = date;
+        this.time = time;
+        this.blockTitle = blockTitle;
     }
 
 }

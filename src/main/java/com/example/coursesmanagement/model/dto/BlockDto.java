@@ -33,4 +33,10 @@ public class BlockDto {
         this.blockTitle = blockTitle;
         this.courseEntity = courseEntity;
     }
+
+    public BlockDto(Long id, String blockTitle, Long courseId) {
+        this.id = id;
+        this.blockTitle = blockTitle;
+        this.courseId = courseId;
+    }
 }
