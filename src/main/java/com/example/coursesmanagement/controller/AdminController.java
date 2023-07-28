@@ -84,6 +84,26 @@ public class AdminController {
         return "all-courses-for-admin";
     }
 
+
+    @GetMapping("/courses/delete-course-summary")
+    public String showDeleteCourseSummary() {
+        return "delete-course-summary";
+    }
+
+    @GetMapping("/courses/delete-course")
+    public String getDeleteCourseView(CourseDto courseDto, Model model) {
+        List<CourseDto> allCourses = courseService.allCourses();
+        model.addAttribute("courses", allCourses);
+        model.addAttribute("courseToDelete", courseDto);
+        return "delete-course";
+    }
+
+    @PostMapping("/courses/delete")
+    public String deleteCourseById(CourseDto courseDto) {
+        courseService.deleteCourseById(courseDto);
+        return "redirect:/admin/courses/delete-course-summary";
+    }
+
     @GetMapping("/blocks")
     public String getAddBlockView(Model model) {
         model.addAttribute("newBlock", new BlockDto());
@@ -135,4 +155,6 @@ public class AdminController {
         model.addAttribute("classes", allClasses);
         return "all-classes";
     }
+
+
 }

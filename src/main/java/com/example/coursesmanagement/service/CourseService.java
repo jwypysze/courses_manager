@@ -53,5 +53,21 @@ public class CourseService {
         return new CourseDto(courseEntity.getId(), courseEntity.getTitle(), courseEntity.getImageName());
     }
 
+    public CourseDto findCourseById(Long id) {
+        CourseEntity courseEntity = courseJpaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException
+                        (CourseEntity.class, id));
+        return new CourseDto(courseEntity.getId(), courseEntity.getTitle(), courseEntity.getImageName());
+    }
+
+    public void deleteCourseById(CourseDto courseDto) {
+        CourseEntity courseEntity =
+                courseJpaRepository.findById(courseDto.getId())
+                        .orElseThrow(() -> new EntityNotFoundException(
+                                CourseEntity.class, courseDto.getId()));
+
+        courseJpaRepository.delete(courseEntity);
+    }
+
 
 }
