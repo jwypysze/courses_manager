@@ -40,4 +40,10 @@ public class ClassService {
     public List<Long> findClassesByBlock(BlockEntity blockEntity) {
         return classJpaRepository.findClassesByBlock(blockEntity);
     }
+
+    public void deleteClassById(ClassDto classDto) {
+        ClassEntity classEntity = classJpaRepository.findById(classDto.getId())
+                .orElseThrow(() -> new EntityNotFoundException(ClassEntity.class, classDto.getId()));
+        classJpaRepository.delete(classEntity);
+    }
 }

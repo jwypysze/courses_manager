@@ -177,5 +177,22 @@ public class AdminController {
         return "all-classes";
     }
 
+    @GetMapping("/classes/delete-class")
+    public String getDeleteClassView(ClassDto classDto, Model model) {
+        List<ClassDto> allClasses = classService.getAllClasses();
+        model.addAttribute("classes", allClasses);
+        model.addAttribute("classToDelete", classDto);
+        return "delete-class";
+    }
 
+    @PostMapping("/classes/delete")
+    public String deleteClassById(ClassDto classDto) {
+        classService.deleteClassById(classDto);
+        return "redirect:/admin/classes/delete-class-summary";
+    }
+
+    @GetMapping("/classes/delete-class-summary")
+    public String showDeleteClassSummary() {
+        return "delete-class-summary";
+    }
 }
