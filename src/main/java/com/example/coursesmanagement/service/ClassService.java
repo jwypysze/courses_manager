@@ -46,6 +46,9 @@ public class ClassService {
                 .orElseThrow(() -> new EntityNotFoundException(ClassEntity.class, classDto.getId()));
         List<Long> notificationsByClass =
                 notificationJpaRepository.findNotificationsByClass(classEntity);
+        for(Long notificationId : notificationsByClass) {
+            notificationJpaRepository.deleteNotificationsFromTableUsersNotifications(notificationId);
+        }
         notificationsByClass.stream()
                         .forEach(notificationId -> notificationJpaRepository.deleteById(notificationId));
         classJpaRepository.delete(classEntity);

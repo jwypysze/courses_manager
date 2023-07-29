@@ -30,4 +30,12 @@ public class NotificationService {
                                 (NotificationEntity.class, notificationDto.getId()));
         notificationJpaRepository.delete(notificationEntity);
     }
+
+    public void deleteNotificationsFromTableUsersNotifications(NotificationDto notificationDto) {
+        NotificationEntity notificationEntity = notificationJpaRepository.findById(notificationDto.getId())
+                .orElseThrow(
+                        () -> new EntityNotFoundException
+                                (NotificationEntity.class, notificationDto.getId()));
+        notificationJpaRepository.deleteNotificationsFromTableUsersNotifications(notificationEntity.getId());
+    }
 }

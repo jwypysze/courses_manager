@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,7 +30,7 @@ public class NotificationEntity {
     private String text;
 
     @ManyToMany(mappedBy = "notifications")
-    private  List<UserEntity> users;
+    private  List<UserEntity> users = new ArrayList<>();
 
     public NotificationEntity(String topic, String text) {
         this.topic = topic;

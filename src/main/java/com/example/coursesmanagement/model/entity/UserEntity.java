@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -44,8 +45,12 @@ public class UserEntity {
     @OneToMany(mappedBy = "userEntity")
     private List<RegistrationEntity> userRegistrations;
 
-    @ManyToMany
-    private List<NotificationEntity> notifications;
+    @ManyToMany(cascade = {CascadeType.PERSIST})
+    @JoinTable(
+            name = "users_notifications",
+            joinColumns = @JoinColumn(name = "users_id"),
+            inverseJoinColumns = @JoinColumn(name = "notifications_id"))
+    private List<NotificationEntity> notifications = new ArrayList<>();
 
     public UserEntity
             (String login, String password, UserType userType, String name, String surname, ActiveUser activeUser) {
