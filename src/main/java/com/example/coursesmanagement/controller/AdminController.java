@@ -216,4 +216,23 @@ public class AdminController {
     public String showDeleteNotificationSummary() {
         return "delete-notification-summary";
     }
+
+    @GetMapping("/notifications")
+    public String getAddNotificationView(Model model) {
+        model.addAttribute("newNotification", new NotificationDto());
+        List<ClassDto> allClasses = classService.getAllClasses();
+        model.addAttribute("classes", allClasses);
+        return "add-notification";
+    }
+
+    @PostMapping("/notifications/add")
+    public String addNotification(NotificationDto notificationDto) {
+        notificationService.addNotification(notificationDto);
+        return "redirect:/admin/notifications/add-notification-summary";
+    }
+
+    @GetMapping("/notifications/add-notification-summary")
+    public String showAddNotificationSummary() {
+        return "add-notification-summary";
+    }
 }

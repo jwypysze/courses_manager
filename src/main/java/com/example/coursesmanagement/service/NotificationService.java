@@ -6,6 +6,7 @@ import com.example.coursesmanagement.model.dto.NotificationDto;
 import com.example.coursesmanagement.model.entity.BlockEntity;
 import com.example.coursesmanagement.model.entity.ClassEntity;
 import com.example.coursesmanagement.model.entity.NotificationEntity;
+import com.example.coursesmanagement.repository.ClassJpaRepository;
 import com.example.coursesmanagement.repository.NotificationJpaRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ import java.util.List;
 public class NotificationService {
 
     private final NotificationJpaRepository notificationJpaRepository;
+    private final ClassJpaRepository classJpaRepository;
 
     public List<Long> findNotificationsByClass(ClassEntity classEntity) {
         return notificationJpaRepository.findNotificationsByClass(classEntity);
@@ -44,5 +46,16 @@ public class NotificationService {
                                 ,notificationEntity.getClassEntity().getDate(),
                                 notificationEntity.getClassEntity().getTime()))
                 .toList();
+    }
+
+    public void addNotification(NotificationDto notificationDto) {
+        ClassEntity classEntity = classJpaRepository
+                .findById(notificationDto.getClassId()).orElseThrow(() ->
+                        new EntityNotFoundException(ClassEntity.class,
+                                notificationDto.getClassId()));
+        NotificationEntity notificationEntity =
+                new NotificationEntity(notificationDto.getTopic(),
+                        notificationDto.getText(), classEntity);
+        notificationJpaRepository.save(notificationEntity);
     }
 }

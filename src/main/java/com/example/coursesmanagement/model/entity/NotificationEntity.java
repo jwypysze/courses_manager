@@ -37,4 +37,10 @@ public class NotificationEntity {
         this.text = text;
     }
 
+    public NotificationEntity(String topic, String text, ClassEntity classEntity) {
+        this.topic = topic;
+        this.text = text;
+        this.classEntity = classEntity;
+    }
+
 }

@@ -22,6 +22,7 @@ public class NotificationDto {
     private String classTopic;
     private LocalDate date;
     private LocalTime time;
+    private Long classId;
 
     public NotificationDto(Long id, String topic, String text,
                            String classTopic, LocalDate date, LocalTime time) {
@@ -33,6 +34,10 @@ public class NotificationDto {
         this.time = time;
     }
 
-
+    public NotificationDto(String topic, String text, Long classId) {
+        this.topic = topic;
+        this.text = text;
+        this.classId = classId;
+    }
 
 }
