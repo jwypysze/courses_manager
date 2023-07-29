@@ -74,6 +74,25 @@ public class AdminController {
         return "add-user-summary";
     }
 
+    @GetMapping("/users/delete-user")
+    public String getDeleteUserView(Model model, UserDto userDto) {
+        List<UserDto> allUsers = userService.getAllUsers();
+        model.addAttribute("users", allUsers);
+        model.addAttribute("userToDelete", userDto);
+        return "delete-user";
+    }
+
+    @PostMapping("/users/delete")
+    public String deleteUserById(UserDto userDto) {
+        userService.deleteUserById(userDto);
+        return "redirect:/admin/users/delete-user-summary";
+    }
+
+    @GetMapping("/users/delete-user-summary")
+    public String showDeleteUserSummary() {
+        return "delete-user-summary";
+    }
+
     @GetMapping("/all-courses-for-admin")
     public String getAllCourses(Model model) {
         List<CourseDto> coursesFromDb = courseService.allCourses();
@@ -235,4 +254,6 @@ public class AdminController {
     public String showAddNotificationSummary() {
         return "add-notification-summary";
     }
+
+
 }

@@ -1,7 +1,9 @@
 package com.example.coursesmanagement.service;
 
+import com.example.coursesmanagement.exception.exceptions.EntityNotFoundException;
 import com.example.coursesmanagement.model.dto.UserDto;
 import com.example.coursesmanagement.model.entity.UserEntity;
+import com.example.coursesmanagement.repository.RegistrationJpaRepository;
 import com.example.coursesmanagement.repository.UserJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import java.util.List;
 public class UserService {
 
     private final UserJpaRepository userJpaRepository;
+    private final RegistrationJpaRepository registrationJpaRepository;
 
     public List<UserDto> getAllUsers() {
         List<UserDto> allUsers = userJpaRepository.findAll().stream()
@@ -31,5 +34,18 @@ public class UserService {
                 (userDto.getLogin(), userDto.getPassword(), userDto.getUserType(),
                         userDto.getName(), userDto.getSurname(), userDto.getActiveUser());
         userJpaRepository.save(userEntity);
+    }
+
+    public void deleteUserById(UserDto userDto) {
+        UserEntity userEntity =
+                userJpaRepository.findById(userDto.getId())
+                        .orElseThrow(() ->
+                                new EntityNotFoundException(UserEntity.class, userDto.getId()));
+        List<Long> registrationsIdByUser = registrationJpaRepository.findRegistrationsByUser(userEntity);
+        for(Long registrationId : registrationsIdByUser) {
+            registrationJpaRepository.deleteById(registrationId);
+        }
+        userJpaRepository.deleteUsersFromTableUsersNotifications(userEntity.getId());
+        userJpaRepository.delete(userEntity);
     }
 }

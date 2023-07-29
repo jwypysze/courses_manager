@@ -2,6 +2,7 @@ package com.example.coursesmanagement.repository;
 
 import com.example.coursesmanagement.model.entity.CourseEntity;
 import com.example.coursesmanagement.model.entity.RegistrationEntity;
+import com.example.coursesmanagement.model.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,4 +17,9 @@ public interface RegistrationJpaRepository extends JpaRepository<RegistrationEnt
             (value = "SELECT r.id FROM RegistrationEntity r INNER JOIN r.courseEntity c WHERE r.courseEntity = :courseEntity",
                     nativeQuery = false)
     List<Long> findRegistrationsByCourse(@Param("courseEntity") CourseEntity courseEntity);
+
+    @Query
+            (value = "SELECT r.id FROM RegistrationEntity r INNER JOIN r.userEntity u WHERE r.userEntity = :userEntity",
+                    nativeQuery = false)
+    List<Long> findRegistrationsByUser(@Param("userEntity") UserEntity userEntity);
 }
