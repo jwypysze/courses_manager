@@ -1,13 +1,7 @@
 package com.example.coursesmanagement.controller;
 
-import com.example.coursesmanagement.model.dto.BlockDto;
-import com.example.coursesmanagement.model.dto.ClassDto;
-import com.example.coursesmanagement.model.dto.CourseDto;
-import com.example.coursesmanagement.model.dto.UserDto;
-import com.example.coursesmanagement.service.BlockService;
-import com.example.coursesmanagement.service.ClassService;
-import com.example.coursesmanagement.service.CourseService;
-import com.example.coursesmanagement.service.UserService;
+import com.example.coursesmanagement.model.dto.*;
+import com.example.coursesmanagement.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +22,7 @@ public class AdminController {
     private final UserService userService;
     private final BlockService blockService;
     private final ClassService classService;
+    private final NotificationService notificationService;
 
     @GetMapping
     public String getAdminView() {
@@ -194,5 +189,12 @@ public class AdminController {
     @GetMapping("/classes/delete-class-summary")
     public String showDeleteClassSummary() {
         return "delete-class-summary";
+    }
+
+    @GetMapping("/all-notifications")
+    public String getAllNotifications(Model model) {
+        List<NotificationDto> allNotifications = notificationService.getAllNotifications();
+        model.addAttribute("notifications", allNotifications);
+        return "all-notifications";
     }
 }

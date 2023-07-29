@@ -1,6 +1,7 @@
 package com.example.coursesmanagement.service;
 
 import com.example.coursesmanagement.exception.exceptions.EntityNotFoundException;
+import com.example.coursesmanagement.model.dto.ClassDto;
 import com.example.coursesmanagement.model.dto.NotificationDto;
 import com.example.coursesmanagement.model.entity.BlockEntity;
 import com.example.coursesmanagement.model.entity.ClassEntity;
@@ -28,14 +29,20 @@ public class NotificationService {
                 notificationJpaRepository.findById(notificationDto.getId())
                         .orElseThrow(() -> new EntityNotFoundException
                                 (NotificationEntity.class, notificationDto.getId()));
+        notificationJpaRepository
+                .deleteNotificationsFromTableUsersNotifications(notificationEntity.getId());
         notificationJpaRepository.delete(notificationEntity);
     }
 
-    public void deleteNotificationsFromTableUsersNotifications(NotificationDto notificationDto) {
-        NotificationEntity notificationEntity = notificationJpaRepository.findById(notificationDto.getId())
-                .orElseThrow(
-                        () -> new EntityNotFoundException
-                                (NotificationEntity.class, notificationDto.getId()));
-        notificationJpaRepository.deleteNotificationsFromTableUsersNotifications(notificationEntity.getId());
+
+    public List<NotificationDto> getAllNotifications() {
+        return notificationJpaRepository.findAll().stream()
+                .map(notificationEntity ->
+                        new NotificationDto(notificationEntity.getId(), notificationEntity.getTopic(),
+                                notificationEntity.getText(),
+                                notificationEntity.getClassEntity().getTopic()
+                                ,notificationEntity.getClassEntity().getDate(),
+                                notificationEntity.getClassEntity().getTime()))
+                .toList();
     }
 }
