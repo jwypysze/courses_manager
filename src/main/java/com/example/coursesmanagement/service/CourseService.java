@@ -7,10 +7,7 @@ import com.example.coursesmanagement.model.entity.BlockEntity;
 import com.example.coursesmanagement.model.entity.ClassEntity;
 import com.example.coursesmanagement.model.entity.CourseEntity;
 import com.example.coursesmanagement.model.entity.NotificationEntity;
-import com.example.coursesmanagement.repository.BlockJpaRepository;
-import com.example.coursesmanagement.repository.ClassJpaRepository;
-import com.example.coursesmanagement.repository.CourseJpaRepository;
-import com.example.coursesmanagement.repository.NotificationJpaRepository;
+import com.example.coursesmanagement.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,6 +29,7 @@ public class CourseService {
     private final BlockJpaRepository blockJpaRepository;
     private final ClassJpaRepository classJpaRepository;
     private final NotificationJpaRepository notificationJpaRepository;
+    private final RegistrationJpaRepository registrationJpaRepository;
 
     public void addCourse(CourseDto courseDto, MultipartFile file) {
         CourseEntity courseEntity = new CourseEntity(courseDto.getTitle(), courseDto.getImageName());
@@ -74,7 +72,6 @@ public class CourseService {
                 courseJpaRepository.findById(courseDto.getId())
                         .orElseThrow(() -> new EntityNotFoundException(
                                 CourseEntity.class, courseDto.getId()));
-
         List<Long> blocksIdByCourse = blockJpaRepository.findBlocksByCourse(courseEntity);
         for(Long blockId : blocksIdByCourse) {
             BlockEntity blockEntityById = blockJpaRepository
@@ -94,6 +91,11 @@ public class CourseService {
         }
         blocksIdByCourse.stream()
                 .forEach(blockId -> blockJpaRepository.deleteById(blockId));
+
+        List<Long> registrationsIdByCourse =
+                registrationJpaRepository.findRegistrationsByCourse(courseEntity);
+        registrationsIdByCourse.stream()
+                        .forEach(registrationId -> registrationJpaRepository.deleteById(registrationId));
         courseJpaRepository.delete(courseEntity);
     }
 
