@@ -100,5 +100,10 @@ public class CourseService {
         courseJpaRepository.delete(courseEntity);
     }
 
+    public CourseDto getCourseById(Long courseId) {
+        CourseEntity courseEntity = courseJpaRepository.findById(courseId)
+                .orElseThrow(() -> new EntityNotFoundException(CourseEntity.class, courseId));
+        return new CourseDto(courseEntity.getId(), courseEntity.getTitle(), null);
+    }
 
 }

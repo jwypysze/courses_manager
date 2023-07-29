@@ -2,6 +2,7 @@ package com.example.coursesmanagement.service;
 
 import com.example.coursesmanagement.exception.exceptions.EntityNotFoundException;
 import com.example.coursesmanagement.model.dto.BlockDto;
+import com.example.coursesmanagement.model.dto.CourseDto;
 import com.example.coursesmanagement.model.entity.BlockEntity;
 import com.example.coursesmanagement.model.entity.ClassEntity;
 import com.example.coursesmanagement.model.entity.CourseEntity;
@@ -11,10 +12,13 @@ import com.example.coursesmanagement.repository.CourseJpaRepository;
 import com.example.coursesmanagement.repository.NotificationJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.propertyeditors.ClassEditor;
+import org.springframework.cglib.core.Block;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -75,5 +79,19 @@ public class BlockService {
         classesIdByBlock
                 .forEach(classJpaRepository::deleteById);
         blockJpaRepository.delete(blockEntity);
+    }
+
+    public List<BlockDto> findBlocksInCourse(CourseDto courseDto) {
+        List<Long> blocksIdInCourse = blockJpaRepository.findBlocksIdInCourse(courseDto.getId());
+        List<BlockEntity> blocksEntitiesInCourse = new ArrayList<>();
+        for(Long blockId : blocksIdInCourse) {
+            BlockEntity blockEntity = blockJpaRepository.findById(blockId)
+                    .orElseThrow(() -> new EntityNotFoundException(BlockEntity.class, blockId));
+            blocksEntitiesInCourse.add(blockEntity);
+        }
+        List<BlockDto> blockDtos = blocksEntitiesInCourse.stream()
+                .map(blockEntity -> new BlockDto(blockEntity.getId(), blockEntity.getBlockTitle(),
+                        blockEntity.getCourseEntity().getTitle())).toList();
+        return blockDtos;
     }
 }

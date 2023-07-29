@@ -16,4 +16,9 @@ public interface BlockJpaRepository extends JpaRepository<BlockEntity,Long> {
             (value = "SELECT b.id FROM BlockEntity b INNER JOIN b.courseEntity c WHERE b.courseEntity = :courseEntity",
                     nativeQuery = false)
     List<Long> findBlocksByCourse(@Param("courseEntity") CourseEntity courseEntity);
+
+    @Query
+            (value = "SELECT b.id FROM blocks b INNER JOIN courses c ON b.course_id = c.id WHERE b.course_id = :courseId",
+                    nativeQuery = true)
+    List<Long> findBlocksIdInCourse(@Param("courseId") Long courseId);
 }

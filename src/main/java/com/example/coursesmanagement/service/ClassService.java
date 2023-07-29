@@ -1,7 +1,9 @@
 package com.example.coursesmanagement.service;
 
 import com.example.coursesmanagement.exception.exceptions.EntityNotFoundException;
+import com.example.coursesmanagement.model.dto.BlockDto;
 import com.example.coursesmanagement.model.dto.ClassDto;
+import com.example.coursesmanagement.model.dto.CourseDto;
 import com.example.coursesmanagement.model.entity.BlockEntity;
 import com.example.coursesmanagement.model.entity.ClassEntity;
 import com.example.coursesmanagement.repository.BlockJpaRepository;
@@ -10,6 +12,7 @@ import com.example.coursesmanagement.repository.NotificationJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -52,5 +55,20 @@ public class ClassService {
         notificationsByClass
                         .forEach(notificationJpaRepository::deleteById);
         classJpaRepository.delete(classEntity);
+    }
+
+    public List<ClassDto> findClassesInBlock(BlockDto blockDto) {
+        List<Long> classesIdInBlock = classJpaRepository.findClassesIdInBlock(blockDto.getId());
+        List<ClassEntity> classEntitiesInBlock = new ArrayList<>();
+        for(Long classId : classesIdInBlock) {
+            ClassEntity classEntity = classJpaRepository.findById(classId)
+                    .orElseThrow(() -> new EntityNotFoundException(ClassEntity.class, classId));
+            classEntitiesInBlock.add(classEntity);
+        }
+        List<ClassDto> classDtos = classEntitiesInBlock.stream()
+                .map(classEntity -> new ClassDto(classEntity.getId(), classEntity.getTopic(),
+                        classEntity.getDate(), classEntity.getTime(),
+                        classEntity.getBlockEntity().getBlockTitle())).toList();
+        return classDtos;
     }
 }

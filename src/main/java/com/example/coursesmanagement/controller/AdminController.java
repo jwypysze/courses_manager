@@ -5,10 +5,7 @@ import com.example.coursesmanagement.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -29,13 +26,11 @@ public class AdminController {
         return "admin";
     }
 
-
     @GetMapping("/courses")
     public String getAddCourseView(Model model) {
         model.addAttribute("newCourse", new CourseDto());
         return "add-course";
     }
-
 
     @PostMapping("/courses/add")
     public String addCourse(CourseDto courseDto, @RequestParam("image") MultipartFile file) {
@@ -48,6 +43,48 @@ public class AdminController {
     public String showAddCourseSummary() {
         return "add-course-summary";
     }
+
+    @GetMapping("/all-courses-for-admin")
+    public String getAllCourses(Model model) {
+        List<CourseDto> coursesFromDb = courseService.allCourses();
+        model.addAttribute("courses", coursesFromDb);
+        return "all-courses-for-admin";
+    }
+
+    @GetMapping("/courses/delete-course-summary")
+    public String showDeleteCourseSummary() {
+        return "delete-course-summary";
+    }
+
+    @GetMapping("/courses/delete-course")
+    public String getDeleteCourseView(CourseDto courseDto, Model model) {
+        List<CourseDto> allCourses = courseService.allCourses();
+        model.addAttribute("courses", allCourses);
+        model.addAttribute("courseToDelete", courseDto);
+        return "delete-course";
+    }
+
+    @PostMapping("/courses/delete")
+    public String deleteCourseById(CourseDto courseDto) {
+        courseService.deleteCourseById(courseDto);
+        return "redirect:/admin/courses/delete-course-summary";
+    }
+
+    @GetMapping("/courses/details/{courseId}")
+    public String courseDetails(Model model, @PathVariable Long courseId) {
+        CourseDto courseById = courseService.getCourseById(courseId);
+        model.addAttribute("courseById", courseById);
+        List<BlockDto> blocksInCourse = blockService.findBlocksInCourse(courseById);
+        model.addAttribute("blocksInCourse", blocksInCourse);
+        return "course-details";
+    }
+
+    @GetMapping("/blocks/details/{blockId}")
+    public String blockDetails(Model model) {
+        return "block-details";
+    }
+
+
 
 
     @GetMapping("/all-users")
@@ -91,33 +128,6 @@ public class AdminController {
     @GetMapping("/users/delete-user-summary")
     public String showDeleteUserSummary() {
         return "delete-user-summary";
-    }
-
-    @GetMapping("/all-courses-for-admin")
-    public String getAllCourses(Model model) {
-        List<CourseDto> coursesFromDb = courseService.allCourses();
-        model.addAttribute("courses", coursesFromDb);
-        return "all-courses-for-admin";
-    }
-
-
-    @GetMapping("/courses/delete-course-summary")
-    public String showDeleteCourseSummary() {
-        return "delete-course-summary";
-    }
-
-    @GetMapping("/courses/delete-course")
-    public String getDeleteCourseView(CourseDto courseDto, Model model) {
-        List<CourseDto> allCourses = courseService.allCourses();
-        model.addAttribute("courses", allCourses);
-        model.addAttribute("courseToDelete", courseDto);
-        return "delete-course";
-    }
-
-    @PostMapping("/courses/delete")
-    public String deleteCourseById(CourseDto courseDto) {
-        courseService.deleteCourseById(courseDto);
-        return "redirect:/admin/courses/delete-course-summary";
     }
 
     @GetMapping("/blocks")
