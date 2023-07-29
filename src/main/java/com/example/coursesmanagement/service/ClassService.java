@@ -49,8 +49,8 @@ public class ClassService {
         for(Long notificationId : notificationsByClass) {
             notificationJpaRepository.deleteNotificationsFromTableUsersNotifications(notificationId);
         }
-        notificationsByClass.stream()
-                        .forEach(notificationId -> notificationJpaRepository.deleteById(notificationId));
+        notificationsByClass
+                        .forEach(notificationJpaRepository::deleteById);
         classJpaRepository.delete(classEntity);
     }
 }

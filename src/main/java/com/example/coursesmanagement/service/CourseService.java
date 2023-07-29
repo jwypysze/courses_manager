@@ -6,7 +6,6 @@ import com.example.coursesmanagement.model.dto.CourseDto;
 import com.example.coursesmanagement.model.entity.BlockEntity;
 import com.example.coursesmanagement.model.entity.ClassEntity;
 import com.example.coursesmanagement.model.entity.CourseEntity;
-import com.example.coursesmanagement.model.entity.NotificationEntity;
 import com.example.coursesmanagement.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +17,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -86,19 +84,19 @@ public class CourseService {
                 for(Long notificationId : notificationsIdByClass) {
                     notificationJpaRepository.deleteNotificationsFromTableUsersNotifications(notificationId);
                 }
-                notificationsIdByClass.stream()
-                        .forEach(notificationId -> notificationJpaRepository.deleteById(notificationId));
+                notificationsIdByClass
+                        .forEach(notificationJpaRepository::deleteById);
             }
-            classesIdByBlock.stream()
-                    .forEach(classId -> classJpaRepository.deleteById(classId));
+            classesIdByBlock
+                    .forEach(classJpaRepository::deleteById);
         }
-        blocksIdByCourse.stream()
-                .forEach(blockId -> blockJpaRepository.deleteById(blockId));
+        blocksIdByCourse
+                .forEach(blockJpaRepository::deleteById);
 
         List<Long> registrationsIdByCourse =
                 registrationJpaRepository.findRegistrationsByCourse(courseEntity);
-        registrationsIdByCourse.stream()
-                        .forEach(registrationId -> registrationJpaRepository.deleteById(registrationId));
+        registrationsIdByCourse
+                        .forEach(registrationJpaRepository::deleteById);
         courseJpaRepository.delete(courseEntity);
     }
 

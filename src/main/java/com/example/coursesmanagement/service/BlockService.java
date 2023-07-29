@@ -69,11 +69,11 @@ public class BlockService {
             for(Long notificationId : notificationsIdByClass) {
                 notificationJpaRepository.deleteNotificationsFromTableUsersNotifications(notificationId);
             }
-            notificationsIdByClass.stream()
-                    .forEach(notificationId -> notificationJpaRepository.deleteById(notificationId));
+            notificationsIdByClass
+                    .forEach(notificationJpaRepository::deleteById);
         }
-        classesIdByBlock.stream()
-                .forEach(classId -> classJpaRepository.deleteById(classId));
+        classesIdByBlock
+                .forEach(classJpaRepository::deleteById);
         blockJpaRepository.delete(blockEntity);
     }
 }

@@ -1,7 +1,6 @@
 package com.example.coursesmanagement.repository;
 
 import com.example.coursesmanagement.model.entity.ClassEntity;
-import com.example.coursesmanagement.model.entity.CourseEntity;
 import com.example.coursesmanagement.model.entity.NotificationEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;

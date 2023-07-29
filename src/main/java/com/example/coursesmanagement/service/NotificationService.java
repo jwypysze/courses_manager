@@ -1,9 +1,7 @@
 package com.example.coursesmanagement.service;
 
 import com.example.coursesmanagement.exception.exceptions.EntityNotFoundException;
-import com.example.coursesmanagement.model.dto.ClassDto;
 import com.example.coursesmanagement.model.dto.NotificationDto;
-import com.example.coursesmanagement.model.entity.BlockEntity;
 import com.example.coursesmanagement.model.entity.ClassEntity;
 import com.example.coursesmanagement.model.entity.NotificationEntity;
 import com.example.coursesmanagement.repository.ClassJpaRepository;

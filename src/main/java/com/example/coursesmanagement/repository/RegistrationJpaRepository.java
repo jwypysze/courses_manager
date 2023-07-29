@@ -1,6 +1,5 @@
 package com.example.coursesmanagement.repository;
 
-import com.example.coursesmanagement.model.dto.CourseDto;
 import com.example.coursesmanagement.model.entity.CourseEntity;
 import com.example.coursesmanagement.model.entity.RegistrationEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
