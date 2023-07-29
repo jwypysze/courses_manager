@@ -66,6 +66,9 @@ public class BlockService {
                     .orElseThrow(() -> new EntityNotFoundException(ClassEditor.class, classId));
             List<Long> notificationsIdByClass =
                     notificationJpaRepository.findNotificationsByClass(classEntity);
+            for(Long notificationId : notificationsIdByClass) {
+                notificationJpaRepository.deleteNotificationsFromTableUsersNotifications(notificationId);
+            }
             notificationsIdByClass.stream()
                     .forEach(notificationId -> notificationJpaRepository.deleteById(notificationId));
         }
