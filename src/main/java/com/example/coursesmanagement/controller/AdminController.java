@@ -197,4 +197,23 @@ public class AdminController {
         model.addAttribute("notifications", allNotifications);
         return "all-notifications";
     }
+
+    @GetMapping("/notifications/delete-notification")
+    public String getDeleteNotificationView(NotificationDto notificationDto, Model model) {
+        List<NotificationDto> allNotifications = notificationService.getAllNotifications();
+        model.addAttribute("notifications", allNotifications);
+        model.addAttribute("notificationToDelete", notificationDto);
+        return "delete-notification";
+    }
+
+    @PostMapping("/notifications/delete")
+    public String deleteNotificationById(NotificationDto notificationDto) {
+        notificationService.deleteNotificationById(notificationDto);
+        return "redirect:/admin/notifications/delete-notification-summary";
+    }
+
+    @GetMapping("/notifications/delete-notification-summary")
+    public String showDeleteNotificationSummary() {
+        return "delete-notification-summary";
+    }
 }
