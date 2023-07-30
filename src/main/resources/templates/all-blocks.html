@@ -32,6 +32,33 @@
 
 
 
+
+<div class="container" style="margin-top:100px">
+    <div class="row" align="center" text-align="center">
+        <th:block th:each="block : ${blocks}">
+            <div class="col-4">
+                <div class="block" style="width: 100%; margin-bottom: 25px;">
+                    <div class="block-body">
+                        <a th:href="@{/admin/blocks/details/__${block.id}__}">
+                            <h5 class="block-title custom-center" th:text="${block.blockTitle}">Block title</h5>
+                        </a>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </th:block>
+    </div>
+</div>
+
+
+
+
+
+
+
+
 <div align="center">
     <form th:action="@{/admin}">
         <button type="submit" class="btn btn-primary" style="width: 40%">Back to main page</button>
