@@ -22,14 +22,18 @@
     <br/>
     <br/>
 </div>
-
+<br/>
 <div align="center">
-    <form th:action="@{/admin}">
+    <form th:action="@{/main-page/blocks-manager}">
+        <button type="submit" class="btn btn-primary" style="width: 80%">Back to the Blocks Manager</button>
+    </form>
+</div>
+<br/>
+<div align="center">
+    <form th:action="@{/main-page}">
         <button type="submit" class="btn btn-primary" style="width: 80%">Back to main page</button>
     </form>
-
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
 </html>

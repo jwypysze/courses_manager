@@ -17,7 +17,7 @@
                 <div class="course" style="width: 100%; margin-bottom: 25px;">
                     <div class="course-body">
                         <h5 class="course-title custom-center" th:text="${course.title}">Course title</h5>
-                        <a th:href="@{/admin/courses/details/__${course.id}__}">
+                        <a th:href="@{/main-page/courses/details/__${course.id}__}">
                             <img th:src="@{/uploads/__${course.imageName}__}" th:alt="${course.imageName}" class="responsive" />
                         </a>
                     </div>
@@ -29,7 +29,13 @@
 </div>
 
 <div align="center">
-    <form th:action="@{/admin}" enctype="multipart/form-data">
+    <form th:action="@{/main-page/courses-manager}">
+        <button type="submit" class="btn btn-primary" style="width: 40%">Back to the Courses Manager</button>
+    </form>
+</div>
+<br/>
+<div align="center">
+    <form th:action="@{/main-page}">
         <button type="submit" class="btn btn-primary" style="width: 40%">Back to main page</button>
     </form>
 </div>

@@ -3,7 +3,6 @@ package com.example.coursesmanagement.controller;
 import com.example.coursesmanagement.model.dto.*;
 import com.example.coursesmanagement.service.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cglib.core.Block;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +12,7 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/main-page")
 @RequiredArgsConstructor
 public class AdminController {
     private final CourseService courseService;
@@ -22,10 +21,41 @@ public class AdminController {
     private final ClassService classService;
     private final NotificationService notificationService;
 
-    @GetMapping
-    public String getAdminView() {
-        return "admin";
+    @GetMapping("/courses-manager")
+    public String getCoursesManagerView() {
+        return "courses-manager";
     }
+
+    @GetMapping("/blocks-manager")
+    public String getBlocksManagerView() {
+        return "blocks-manager";
+    }
+
+    @GetMapping("/classes-manager")
+    public String getClassesManagerView() {
+        return "classes-manager";
+    }
+
+    @GetMapping("/notifications-manager")
+    public String getNotificationsManagerView() {
+        return "notifications-manager";
+    }
+
+    @GetMapping("/users-manager")
+    public String getUsersManagerView() {
+        return "users-manager";
+    }
+
+    @GetMapping("/registrations-manager")
+    public String getRegistrationsManagerView() {
+        return "registrations-manager";
+    }
+
+    @GetMapping
+    public String getMainPageView() {
+        return "main-page";
+    }
+
 
     @GetMapping("/courses")
     public String getAddCourseView(Model model) {
@@ -37,7 +67,7 @@ public class AdminController {
     public String addCourse(CourseDto courseDto, @RequestParam("image") MultipartFile file) {
         courseDto.setImageName(file.getOriginalFilename());
         courseService.addCourse(courseDto, file);
-        return "redirect:/admin/courses/add-course-summary";
+        return "redirect:/main-page/courses/add-course-summary";
     }
 
     @GetMapping("/courses/add-course-summary")
@@ -68,7 +98,7 @@ public class AdminController {
     @PostMapping("/courses/delete")
     public String deleteCourseById(CourseDto courseDto) {
         courseService.deleteCourseById(courseDto);
-        return "redirect:/admin/courses/delete-course-summary";
+        return "redirect:/main-page/courses/delete-course-summary";
     }
 
     @GetMapping("/courses/details/{courseId}")
@@ -108,7 +138,7 @@ public class AdminController {
     @PostMapping("/users/add")
     public String addUser(UserDto userDto) {
         userService.addUser(userDto);
-        return "redirect:/admin/users/add-user-summary";
+        return "redirect:/main-page/users/add-user-summary";
     }
 
     @GetMapping("/users/add-user-summary")
@@ -127,7 +157,7 @@ public class AdminController {
     @PostMapping("/users/delete")
     public String deleteUserById(UserDto userDto) {
         userService.deleteUserById(userDto);
-        return "redirect:/admin/users/delete-user-summary";
+        return "redirect:/main-page/users/delete-user-summary";
     }
 
     @GetMapping("/users/delete-user-summary")
@@ -146,7 +176,7 @@ public class AdminController {
     @PostMapping("/blocks/add")
     public String addBlock(BlockDto blockDto) {
         blockService.addBlock(blockDto);
-        return "redirect:/admin/blocks/add-block-summary";
+        return "redirect:/main-page/blocks/add-block-summary";
     }
 
     @GetMapping("/blocks/add-block-summary")
@@ -172,7 +202,7 @@ public class AdminController {
     @PostMapping("/blocks/delete")
     public String deleteBlockById(BlockDto blockDto) {
         blockService.deleteBlockById(blockDto);
-        return "redirect:/admin/blocks/delete-block-summary";
+        return "redirect:/main-page/blocks/delete-block-summary";
     }
 
     @GetMapping("/blocks/delete-block-summary")
@@ -191,7 +221,7 @@ public class AdminController {
     @PostMapping("/classes/add")
     public String addClass(ClassDto classDto) {
         classService.addClass(classDto);
-        return "redirect:/admin/classes/add-class-summary";
+        return "redirect:/main-page/classes/add-class-summary";
     }
 
     @GetMapping("/classes/add-class-summary")
@@ -217,7 +247,7 @@ public class AdminController {
     @PostMapping("/classes/delete")
     public String deleteClassById(ClassDto classDto) {
         classService.deleteClassById(classDto);
-        return "redirect:/admin/classes/delete-class-summary";
+        return "redirect:/main-page/classes/delete-class-summary";
     }
 
     @GetMapping("/classes/delete-class-summary")
@@ -243,7 +273,7 @@ public class AdminController {
     @PostMapping("/notifications/delete")
     public String deleteNotificationById(NotificationDto notificationDto) {
         notificationService.deleteNotificationById(notificationDto);
-        return "redirect:/admin/notifications/delete-notification-summary";
+        return "redirect:/main-page/notifications/delete-notification-summary";
     }
 
     @GetMapping("/notifications/delete-notification-summary")
@@ -262,7 +292,7 @@ public class AdminController {
     @PostMapping("/notifications/add")
     public String addNotification(NotificationDto notificationDto) {
         notificationService.addNotification(notificationDto);
-        return "redirect:/admin/notifications/add-notification-summary";
+        return "redirect:/main-page/notifications/add-notification-summary";
     }
 
     @GetMapping("/notifications/add-notification-summary")

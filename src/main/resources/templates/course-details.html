@@ -37,17 +37,28 @@
             <div class="col-4">
                 <div class="block" style="width: 100%; margin-bottom: 25px;">
                     <div class="block-body">
-                        <a th:href="@{/admin/blocks/details/__${block.id}__}">
+                        <a th:href="@{/main-page/blocks/details/__${block.id}__}">
                             <h5 class="block-title custom-center" th:text="${block.blockTitle}" style="background-color: paleturquoise">Block title</h5>
                         </a>
-
-
                     </div>
 
                 </div>
             </div>
         </th:block>
     </div>
+</div>
+
+<br/>
+<div align="center">
+    <form th:action="@{/main-page/courses-manager}">
+        <button type="submit" class="btn btn-primary" style="width: 40%">Back to the Courses Manager</button>
+    </form>
+</div>
+<br/>
+<div align="center">
+    <form th:action="@{/main-page}">
+        <button type="submit" class="btn btn-primary" style="width: 40%">Back to main page</button>
+    </form>
 </div>
 
 
