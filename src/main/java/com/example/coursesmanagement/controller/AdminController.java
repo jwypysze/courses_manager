@@ -121,6 +121,27 @@ public class AdminController {
         return "update-course-summary";
     }
 
+    @GetMapping("/blocks/update-block")
+    public String getUpdateBlockView(Model model, BlockDto blockDto) {
+        List<BlockDto> allBlocks = blockService.getAllBlocks();
+        model.addAttribute("blocks", allBlocks);
+        List<CourseDto> allCourses = courseService.allCourses();
+        model.addAttribute("courses", allCourses);
+        model.addAttribute("blockToUpdate", blockDto);
+        return "update-block";
+    }
+
+    @PostMapping("/blocks/update")
+    public String updateBlockById(BlockDto blockDto) {
+        blockService.updateBlockById(blockDto);
+        return "redirect:/main-page/blocks/update-block-summary";
+    }
+
+    @GetMapping("/blocks/update-block-summary")
+    public String showUpdateBlockSummary() {
+        return "update-block-summary";
+    }
+
     @GetMapping("/courses/details/{courseId}")
     public String courseDetails(Model model, @PathVariable Long courseId) {
         CourseDto courseById = courseService.getCourseById(courseId);

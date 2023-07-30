@@ -29,11 +29,19 @@
                     <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: magenta">Show blocks</button>
                 </form>
             </td>
+        </tr>
+        <tr>
             <td>
                 <form th:action="@{/main-page/blocks/delete-block}">
                     <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: yellow; color: orange">Delete block</button>
                 </form>
             </td>
+            <td>
+                <form th:action="@{/main-page/blocks/update-block}">
+                    <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: yellow; color: orange">Update block</button>
+                </form>
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>
