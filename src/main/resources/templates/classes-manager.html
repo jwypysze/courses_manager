@@ -29,11 +29,19 @@
                     <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: orangered">Show classes</button>
                 </form>
             </td>
+        </tr>
+        <tr>
             <td>
                 <form th:action="@{/main-page/classes/delete-class}">
                     <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: deepskyblue">Delete class</button>
                 </form>
             </td>
+            <td>
+                <form th:action="@{/main-page/classes/update-class}">
+                    <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: deepskyblue">Update class</button>
+                </form>
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>

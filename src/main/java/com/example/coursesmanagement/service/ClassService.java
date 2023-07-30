@@ -72,4 +72,13 @@ public class ClassService {
                         classEntity.getBlockEntity().getBlockTitle(), classEntity.getBlockEntity().getCourseEntity().getTitle())).toList();
         return classDtos;
     }
+
+    public void updateClassById(ClassDto classDto) {
+        ClassEntity classEntity = classJpaRepository.findById(classDto.getId())
+                .orElseThrow(() ->
+                        new EntityNotFoundException(ClassEntity.class, classDto.getId()));
+        classJpaRepository.updateClassById
+                (classDto.getTopic(), classDto.getDate(), classDto.getTime(),
+                        classDto.getBlockId(), classEntity.getId());
+    }
 }

@@ -142,6 +142,27 @@ public class AdminController {
         return "update-block-summary";
     }
 
+    @GetMapping("/classes/update-class")
+    public String getUpdateClassView(Model model, ClassDto classDto) {
+        List<BlockDto> allBlocks = blockService.getAllBlocks();
+        model.addAttribute("blocks", allBlocks);
+        List<ClassDto> allClasses = classService.getAllClasses();
+        model.addAttribute("classes", allClasses);
+        model.addAttribute("classToUpdate", classDto);
+        return "update-class";
+    }
+
+    @PostMapping("/classes/update")
+    public String updateClassById(ClassDto classDto) {
+        classService.updateClassById(classDto);
+        return "redirect:/main-page/classes/update-class-summary";
+    }
+
+    @GetMapping("/classes/update-class-summary")
+    public String showUpdateClassSummary() {
+        return "update-class-summary";
+    }
+
     @GetMapping("/courses/details/{courseId}")
     public String courseDetails(Model model, @PathVariable Long courseId) {
         CourseDto courseById = courseService.getCourseById(courseId);

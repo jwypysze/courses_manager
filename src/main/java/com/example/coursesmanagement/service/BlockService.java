@@ -99,6 +99,7 @@ public class BlockService {
         BlockEntity blockEntity = blockJpaRepository.findById(blockDto.getId())
                 .orElseThrow(() ->
                         new EntityNotFoundException(BlockEntity.class, blockDto.getId()));
-        blockJpaRepository.updateBlockById(blockDto.getBlockTitle(), blockDto.getCourseId(), blockEntity.getId());
+        blockJpaRepository.updateBlockById(blockDto.getBlockTitle(),
+                blockDto.getCourseId(), blockEntity.getId());
     }
 }
