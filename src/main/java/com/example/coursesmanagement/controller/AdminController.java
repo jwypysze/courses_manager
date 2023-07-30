@@ -101,6 +101,26 @@ public class AdminController {
         return "redirect:/main-page/courses/delete-course-summary";
     }
 
+    @GetMapping("/courses/update-course")
+    public String getUpdateCourseView(Model model, CourseDto courseDto) {
+        List<CourseDto> allCourses = courseService.allCourses();
+        model.addAttribute("courses", allCourses);
+        model.addAttribute("courseToUpdate", courseDto);
+        return "update-course";
+    }
+
+    @PostMapping("/courses/update")
+    public String updateCourseById(CourseDto courseDto, @RequestParam("image") MultipartFile file) {
+        courseDto.setImageName(file.getOriginalFilename());
+        courseService.updateCourseById(courseDto, file);
+        return "redirect:/main-page/courses/update-course-summary";
+    }
+
+    @GetMapping("/courses/update-course-summary")
+    public String showUpdateCourseSummary() {
+        return "update-course-summary";
+    }
+
     @GetMapping("/courses/details/{courseId}")
     public String courseDetails(Model model, @PathVariable Long courseId) {
         CourseDto courseById = courseService.getCourseById(courseId);

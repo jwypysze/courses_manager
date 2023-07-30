@@ -106,4 +106,12 @@ public class CourseService {
         return new CourseDto(courseEntity.getId(), courseEntity.getTitle(), null);
     }
 
+    public void updateCourseById(CourseDto courseDto, MultipartFile file) {
+        CourseEntity courseEntity = courseJpaRepository
+                .findById(courseDto.getId()).orElseThrow(() ->
+                        new EntityNotFoundException(CourseEntity.class, courseDto.getId()));
+        courseJpaRepository
+                .updateCourseById(courseDto.getTitle(), courseDto.getImageName(), courseEntity.getId());
+        saveCourseImage(file);
+    }
 }
