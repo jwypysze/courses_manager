@@ -163,6 +163,27 @@ public class AdminController {
         return "update-class-summary";
     }
 
+    @GetMapping("/notifications/update-notification")
+    public String getUpdateNotificationView(Model model, NotificationDto notificationDto) {
+        List<ClassDto> allClasses = classService.getAllClasses();
+        model.addAttribute("classes", allClasses);
+        List<NotificationDto> allNotifications = notificationService.getAllNotifications();
+        model.addAttribute("notifications", allNotifications);
+        model.addAttribute("notificationToUpdate", notificationDto);
+        return "update-notification";
+    }
+
+    @PostMapping("/notifications/update")
+    public String updateNotificationById(NotificationDto notificationDto) {
+        notificationService.updateNotificationById(notificationDto);
+        return "redirect:/main-page/notifications/update-notification-summary";
+    }
+
+    @GetMapping("/notifications/update-notification-summary")
+    public String showUpdateNotificationSummary() {
+        return "update-notification-summary";
+    }
+
     @GetMapping("/courses/details/{courseId}")
     public String courseDetails(Model model, @PathVariable Long courseId) {
         CourseDto courseById = courseService.getCourseById(courseId);

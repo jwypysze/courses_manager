@@ -56,4 +56,14 @@ public class NotificationService {
                         notificationDto.getText(), classEntity);
         notificationJpaRepository.save(notificationEntity);
     }
+
+    public void updateNotificationById(NotificationDto notificationDto) {
+        NotificationEntity notificationEntity = notificationJpaRepository
+                .findById(notificationDto.getId())
+                .orElseThrow(() ->
+                new EntityNotFoundException(NotificationEntity.class, notificationDto.getId()));
+        notificationJpaRepository.updateNotificationsById
+                (notificationDto.getTopic(), notificationDto.getText(),
+                        notificationDto.getClassId(), notificationEntity.getId());
+    }
 }

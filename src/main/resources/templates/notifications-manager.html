@@ -8,13 +8,9 @@
 
 </head>
 <body>
-
-
 <div class="container" style="background-color: papayawhip; height: 70px; margin-top:100px">
     <h1 style="text-align: center; font-style: italic; font: 40pt Georgia; color: darkred">On this page you can manage notifications</h1>
 </div>
-
-
 <div class="container" style="background-color: seashell; padding: 50px; border-radius:20px;">
     <table align="center" style="text-align: center; width: 80%">
         <tbody>
@@ -29,11 +25,20 @@
                     <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: darkslategrey">Delete notification</button>
                 </form>
             </td>
+
+        <tr/>
+        <tr>
             <td>
                 <form th:action="@{/main-page/notifications}">
                     <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: darkorange">Add new notification</button>
                 </form>
             </td>
+            <td>
+                <form th:action="@{/main-page/notifications/update-notification}">
+                    <button type="submit" class="btn btn-primary" style="width: 100%; font: 20pt Verdana; background-color: darkorange">Update notification</button>
+                </form>
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>

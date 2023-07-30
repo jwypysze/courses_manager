@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Repository
@@ -25,5 +27,15 @@ public interface NotificationJpaRepository extends JpaRepository<NotificationEnt
     @Modifying
     @Transactional
     void deleteNotificationsFromTableUsersNotifications(@Param("notificationId") Long notificationId);
+
+    @Query
+            (value = "UPDATE notifications n SET n.topic = :newTopic, n.text = :newText, n.class_id = :newClassId WHERE n.id = :notificationId",
+                    nativeQuery = true)
+    @Modifying
+    @Transactional
+    void updateNotificationsById(@Param("newTopic") String newTopic,
+                         @Param("newText") String newText,
+                         @Param("newClassId") Long newClassId,
+                         @Param("notificationId") Long notificationId);
 
 }
