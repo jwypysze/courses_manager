@@ -51,7 +51,7 @@ public class BlockService {
         BlockEntity blockEntity = blockJpaRepository.findById(blockId)
                 .orElseThrow(() -> new EntityNotFoundException(BlockEntity.class, blockId));
         return new BlockDto(blockEntity.getId(), blockEntity.getBlockTitle(),
-                blockEntity.getCourseEntity());
+                blockEntity.getCourseEntity().getTitle());
     }
 
     public List<Long> findBlocksByCourse(CourseEntity courseEntity) {

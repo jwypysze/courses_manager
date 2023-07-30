@@ -22,6 +22,7 @@ public class ClassDto {
     private Long blockId;
     private BlockEntity blockEntity;
     private String blockTitle;
+    private String courseTitle;
 
     public ClassDto(String topic, LocalDate date, LocalTime time, Long blockId) {
         this.topic = topic;
@@ -30,12 +31,13 @@ public class ClassDto {
         this.blockId = blockId;
     }
 
-    public ClassDto(Long id, String topic, LocalDate date, LocalTime time, String blockTitle) {
+    public ClassDto(Long id, String topic, LocalDate date, LocalTime time, String blockTitle, String courseTitle) {
         this.id = id;
         this.topic = topic;
         this.date = date;
         this.time = time;
         this.blockTitle = blockTitle;
+        this.courseTitle = courseTitle;
     }
 
 }

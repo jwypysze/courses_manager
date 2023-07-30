@@ -36,7 +36,8 @@ public class ClassService {
                 .map(classEntity ->
                         new ClassDto(classEntity.getId(), classEntity.getTopic(),
                                 classEntity.getDate(), classEntity.getTime(),
-                                classEntity.getBlockEntity().getBlockTitle()))
+                                classEntity.getBlockEntity().getBlockTitle(),
+                                classEntity.getBlockEntity().getCourseEntity().getTitle()))
                 .toList();
     }
 
@@ -68,7 +69,7 @@ public class ClassService {
         List<ClassDto> classDtos = classEntitiesInBlock.stream()
                 .map(classEntity -> new ClassDto(classEntity.getId(), classEntity.getTopic(),
                         classEntity.getDate(), classEntity.getTime(),
-                        classEntity.getBlockEntity().getBlockTitle())).toList();
+                        classEntity.getBlockEntity().getBlockTitle(), classEntity.getBlockEntity().getCourseEntity().getTitle())).toList();
         return classDtos;
     }
 }

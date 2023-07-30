@@ -3,6 +3,7 @@ package com.example.coursesmanagement.controller;
 import com.example.coursesmanagement.model.dto.*;
 import com.example.coursesmanagement.service.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cglib.core.Block;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -80,7 +81,11 @@ public class AdminController {
     }
 
     @GetMapping("/blocks/details/{blockId}")
-    public String blockDetails(Model model) {
+    public String blockDetails(Model model, @PathVariable Long blockId) {
+        BlockDto blockById = blockService.getBlockById(blockId);
+        model.addAttribute("blockById", blockById);
+        List<ClassDto> classesInBlock = classService.findClassesInBlock(blockById);
+        model.addAttribute("classesInBlock", classesInBlock);
         return "block-details";
     }
 
