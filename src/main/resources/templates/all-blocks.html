@@ -32,8 +32,9 @@
             <div class="col-4">
                 <div class="block" style="width: 100%; margin-bottom: 25px;">
                     <div class="block-body">
+                        <h5 class="block-title custom-center" th:text="${block.blockTitle}">Block title</h5>
                         <a th:href="@{/main-page/blocks/details/__${block.id}__}">
-                            <h5 class="block-title custom-center" th:text="${block.blockTitle}">Block title</h5>
+                            <img th:src="@{/uploads/blocks.png}" class="responsive" />
                         </a>
                     </div>
                 </div>

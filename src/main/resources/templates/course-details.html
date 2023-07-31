@@ -29,7 +29,7 @@
 </div>
 
 
-<div class="container" style="text-align: center; font-style: italic; font: 40pt Georgia; color: darkred">Blocks of the course</div>
+<div class="container" style="text-align: center; font-style: italic; font: 40pt Georgia; color: darkred">Blocks in the course</div>
 
 <div class="container" style="margin-top:100px">
     <div class="row" align="center" text-align="center">
@@ -37,8 +37,9 @@
             <div class="col-4">
                 <div class="block" style="width: 100%; margin-bottom: 25px;">
                     <div class="block-body">
+                        <h5 class="block-title custom-center" th:text="${block.blockTitle}" style="background-color: paleturquoise">Block title</h5>
                         <a th:href="@{/main-page/blocks/details/__${block.id}__}">
-                            <h5 class="block-title custom-center" th:text="${block.blockTitle}" style="background-color: paleturquoise">Block title</h5>
+                            <img th:src="@{/uploads/blocks.png}" class="responsive" />
                         </a>
                     </div>
 
