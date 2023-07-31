@@ -302,10 +302,29 @@ public class AdminController {
         return "delete-block";
     }
 
+    @GetMapping("/registrations/delete-registration")
+    public String getDeleteRegistrationView(RegistrationDto registrationDto, Model model) {
+        List<RegistrationDto> allRegistrations = registrationService.getAllRegistrations();
+        model.addAttribute("registrations", allRegistrations);
+        model.addAttribute("registrationToDelete", registrationDto);
+        return "delete-registration";
+    }
+
     @PostMapping("/blocks/delete")
     public String deleteBlockById(BlockDto blockDto) {
         blockService.deleteBlockById(blockDto);
         return "redirect:/main-page/blocks/delete-block-summary";
+    }
+
+    @PostMapping("/registrations/delete")
+    public String deleteRegistrationById(RegistrationDto registrationDto) {
+        registrationService.deleteRegistrationById(registrationDto);
+        return "redirect:/main-page/registrations/delete-registration-summary";
+    }
+
+    @GetMapping("/registrations/delete-registration-summary")
+    public String showDeleteRegistrationSummary() {
+        return "delete-registration-summary";
     }
 
     @GetMapping("/blocks/delete-block-summary")

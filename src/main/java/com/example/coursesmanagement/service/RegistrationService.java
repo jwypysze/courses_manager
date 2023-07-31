@@ -51,4 +51,8 @@ public class RegistrationService {
         RegistrationEntity registrationEntity = new RegistrationEntity(userEntity, courseEntity);
         registrationJpaRepository.save(registrationEntity);
     }
+
+    public void deleteRegistrationById(RegistrationDto registrationDto) {
+        registrationJpaRepository.deleteById(registrationDto.getId());
+    }
 }
