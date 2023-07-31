@@ -110,6 +110,29 @@ public class AdminController {
         return "update-course";
     }
 
+    @GetMapping("/registrations/update-registration")
+    public String getUpdateRegistrationView(Model model, RegistrationDto registrationDto) {
+        List<RegistrationDto> allRegistrations = registrationService.getAllRegistrations();
+        model.addAttribute("registrations", allRegistrations);
+        List<CourseDto> allCourses = courseService.getAllCourses();
+        model.addAttribute("courses", allCourses);
+        List<UserDto> allUsers = userService.getAllUsers();
+        model.addAttribute("users", allUsers);
+        model.addAttribute("registrationToUpdate", registrationDto);
+        return "update-registration";
+    }
+
+    @PostMapping("/registrations/update")
+    public String updateRegistrationById(RegistrationDto registrationDto) {
+        registrationService.updateRegistrationById(registrationDto);
+        return "redirect:/main-page/registrations/update-registration-summary";
+    }
+
+    @GetMapping("/registrations/update-registration-summary")
+    public String showUpdateRegistrationSummary() {
+        return "update-registration-summary";
+    }
+
     @PostMapping("/courses/update")
     public String updateCourseById(CourseDto courseDto, @RequestParam("image") MultipartFile file) {
         courseDto.setImageName(file.getOriginalFilename());
