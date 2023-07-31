@@ -1,14 +1,18 @@
 package com.example.coursesmanagement.service;
 
+import com.example.coursesmanagement.exception.exceptions.EntityNotFoundException;
 import com.example.coursesmanagement.model.dto.RegistrationDto;
 import com.example.coursesmanagement.model.entity.CourseEntity;
 import com.example.coursesmanagement.model.entity.RegistrationEntity;
+import com.example.coursesmanagement.model.entity.UserEntity;
 import com.example.coursesmanagement.repository.CourseJpaRepository;
 import com.example.coursesmanagement.repository.RegistrationJpaRepository;
+import com.example.coursesmanagement.repository.UserJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,6 +20,7 @@ public class RegistrationService {
 
     private final RegistrationJpaRepository registrationJpaRepository;
     private final CourseJpaRepository courseJpaRepository;
+    private final UserJpaRepository userJpaRepository;
 
     public List<Long> findRegistrationsByCourse(CourseEntity courseEntity) {
         List<Long> registrationsIdByCourse =
@@ -34,5 +39,16 @@ public class RegistrationService {
                                 registrationEntity.getCourseEntity().getTitle()))
                 .toList();
         return registrations;
+    }
+
+    public void addRegistration(RegistrationDto registrationDto) {
+        CourseEntity courseEntity = courseJpaRepository.findById(registrationDto.getCourseId())
+                .orElseThrow(() ->
+                new EntityNotFoundException(CourseEntity.class, registrationDto.getCourseId()));
+        UserEntity userEntity = userJpaRepository.findById(registrationDto.getUserId())
+                .orElseThrow(() ->
+                        new EntityNotFoundException(UserEntity.class, registrationDto.getUserId()));
+        RegistrationEntity registrationEntity = new RegistrationEntity(userEntity, courseEntity);
+        registrationJpaRepository.save(registrationEntity);
     }
 }

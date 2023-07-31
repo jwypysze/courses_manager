@@ -37,4 +37,8 @@ public class RegistrationEntity {
     @JoinColumn(name = "course_id")
     private CourseEntity courseEntity;
 
+    public RegistrationEntity(UserEntity userEntity, CourseEntity courseEntity) {
+        this.userEntity = userEntity;
+        this.courseEntity = courseEntity;
+    }
 }

@@ -321,10 +321,31 @@ public class AdminController {
         return "add-class";
     }
 
+    @GetMapping("/registrations")
+    public String getAddRegistrationView(Model model) {
+        model.addAttribute("newRegistration", new RegistrationDto());
+        List<CourseDto> allCourses = courseService.allCourses();
+        model.addAttribute("courses", allCourses);
+        List<UserDto> allUsers = userService.getAllUsers();
+        model.addAttribute("users", allUsers);
+        return "add-registration";
+    }
+
     @PostMapping("/classes/add")
     public String addClass(ClassDto classDto) {
         classService.addClass(classDto);
         return "redirect:/main-page/classes/add-class-summary";
+    }
+
+    @PostMapping("/registrations/add")
+    public String addRegistration(RegistrationDto registrationDto) {
+        registrationService.addRegistration(registrationDto);
+        return "redirect:/main-page/registrations/add-registration-summary";
+    }
+
+    @GetMapping("/registrations/add-registration-summary")
+    public String showAddRegistrationSummary() {
+        return "add-registration-summary";
     }
 
     @GetMapping("/classes/add-class-summary")
