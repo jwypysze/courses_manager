@@ -11,8 +11,14 @@ import com.example.coursesmanagement.repository.UserJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +28,7 @@ public class RegistrationService {
     private final CourseJpaRepository courseJpaRepository;
     private final UserJpaRepository userJpaRepository;
 
-    public List<Long> findRegistrationsByCourse(CourseEntity courseEntity) {
+    public List<Long> findRegistrationsIdByCourse(CourseEntity courseEntity) {
         List<Long> registrationsIdByCourse =
                 registrationJpaRepository.findRegistrationsByCourse(courseEntity);
         return registrationsIdByCourse;
@@ -63,4 +69,5 @@ public class RegistrationService {
         registrationJpaRepository.updateRegistrationById
                 (registrationDto.getUserId(), registrationDto.getCourseId(), registrationEntity.getId());
     }
+
 }

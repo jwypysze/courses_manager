@@ -41,7 +41,7 @@ public class UserService {
                 userJpaRepository.findById(userDto.getId())
                         .orElseThrow(() ->
                                 new EntityNotFoundException(UserEntity.class, userDto.getId()));
-        List<Long> registrationsIdByUser = registrationJpaRepository.findRegistrationsByUser(userEntity);
+        List<Long> registrationsIdByUser = registrationJpaRepository.findRegistrationsIdByUser(userEntity);
         for(Long registrationId : registrationsIdByUser) {
             registrationJpaRepository.deleteById(registrationId);
         }
