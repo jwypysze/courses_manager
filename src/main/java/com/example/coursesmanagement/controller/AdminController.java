@@ -78,7 +78,7 @@ public class AdminController {
 
     @GetMapping("/all-courses-for-admin")
     public String getAllCourses(Model model) {
-        List<CourseDto> coursesFromDb = courseService.allCourses();
+        List<CourseDto> coursesFromDb = courseService.getAllCourses();
         model.addAttribute("courses", coursesFromDb);
         return "all-courses-for-admin";
     }
@@ -90,7 +90,7 @@ public class AdminController {
 
     @GetMapping("/courses/delete-course")
     public String getDeleteCourseView(CourseDto courseDto, Model model) {
-        List<CourseDto> allCourses = courseService.allCourses();
+        List<CourseDto> allCourses = courseService.getAllCourses();
         model.addAttribute("courses", allCourses);
         model.addAttribute("courseToDelete", courseDto);
         return "delete-course";
@@ -104,7 +104,7 @@ public class AdminController {
 
     @GetMapping("/courses/update-course")
     public String getUpdateCourseView(Model model, CourseDto courseDto) {
-        List<CourseDto> allCourses = courseService.allCourses();
+        List<CourseDto> allCourses = courseService.getAllCourses();
         model.addAttribute("courses", allCourses);
         model.addAttribute("courseToUpdate", courseDto);
         return "update-course";
@@ -145,7 +145,7 @@ public class AdminController {
     public String getUpdateBlockView(Model model, BlockDto blockDto) {
         List<BlockDto> allBlocks = blockService.getAllBlocks();
         model.addAttribute("blocks", allBlocks);
-        List<CourseDto> allCourses = courseService.allCourses();
+        List<CourseDto> allCourses = courseService.getAllCourses();
         model.addAttribute("courses", allCourses);
         model.addAttribute("blockToUpdate", blockDto);
         return "update-block";
@@ -271,7 +271,7 @@ public class AdminController {
     @GetMapping("/blocks")
     public String getAddBlockView(Model model) {
         model.addAttribute("newBlock", new BlockDto());
-        List<CourseDto> coursesFromDb = courseService.allCourses();
+        List<CourseDto> coursesFromDb = courseService.getAllCourses();
         model.addAttribute("courses", coursesFromDb);
         return "add-block";
     }
@@ -324,7 +324,7 @@ public class AdminController {
     @GetMapping("/registrations")
     public String getAddRegistrationView(Model model) {
         model.addAttribute("newRegistration", new RegistrationDto());
-        List<CourseDto> allCourses = courseService.allCourses();
+        List<CourseDto> allCourses = courseService.getAllCourses();
         model.addAttribute("courses", allCourses);
         List<UserDto> allUsers = userService.getAllUsers();
         model.addAttribute("users", allUsers);

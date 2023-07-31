@@ -44,7 +44,7 @@ public class CourseService {
         }
     }
 
-    public List<CourseDto> allCourses() {
+    public List<CourseDto> getAllCourses() {
         return courseJpaRepository.findAll().stream()
                 .map(courseEntity ->
                         new CourseDto(courseEntity.getId(), courseEntity.getTitle(),
