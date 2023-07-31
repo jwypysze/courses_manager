@@ -20,6 +20,7 @@ public class AdminController {
     private final BlockService blockService;
     private final ClassService classService;
     private final NotificationService notificationService;
+    private final RegistrationService registrationService;
 
     @GetMapping("/courses-manager")
     public String getCoursesManagerView() {
@@ -362,6 +363,13 @@ public class AdminController {
         List<NotificationDto> allNotifications = notificationService.getAllNotifications();
         model.addAttribute("notifications", allNotifications);
         return "all-notifications";
+    }
+
+    @GetMapping("/all-registrations")
+    public String getAllRegistrations(Model model) {
+        List<RegistrationDto> allRegistrations = registrationService.getAllRegistrations();
+        model.addAttribute("registrations", allRegistrations);
+        return "all-registrations";
     }
 
     @GetMapping("/notifications/delete-notification")

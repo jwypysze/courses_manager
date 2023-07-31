@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS registrations(
     id BIGINT NOT NULL UNIQUE AUTO_INCREMENT PRIMARY KEY,
-    `date` DATETIME NOT NULL,
+    `date` DATE NOT NULL,
+    `time` TIME NOT NULL,
     user_id BIGINT NOT NULL,
     course_id BIGINT NOT NULL,
     CONSTRAINT registrations_to_users_fk FOREIGN KEY (user_id) REFERENCES users(id),

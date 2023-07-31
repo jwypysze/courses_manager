@@ -6,7 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "registrations")
@@ -21,7 +23,11 @@ public class RegistrationEntity {
 
     @Column(name = "date")
     @CreationTimestamp
-    private LocalDateTime registrationDate;
+    private LocalDate date;
+
+    @Column(name = "time")
+    @CreationTimestamp
+    private LocalTime time;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

@@ -5,7 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -14,9 +16,29 @@ import java.time.LocalDateTime;
 public class RegistrationDto {
 
     private Long id;
-    private LocalDateTime registrationDate;
+    private LocalDate date;
+    private LocalTime time;
+    private Long userId;
+    private Long courseId;
+    private String userName;
+    private String userSurname;
+    private String courseTitle;
 
+    public RegistrationDto(Long id, LocalDate date, LocalTime time, Long userId, Long courseId) {
+        this.id = id;
+        this.date = date;
+        this.time = time;
+        this.userId = userId;
+        this.courseId = courseId;
+    }
 
-
-
+    public RegistrationDto(Long id, LocalDate date, LocalTime time, String userName,
+                           String userSurname, String courseTitle) {
+        this.id = id;
+        this.date = date;
+        this.time = time;
+        this.userName = userName;
+        this.userSurname = userSurname;
+        this.courseTitle = courseTitle;
+    }
 }
