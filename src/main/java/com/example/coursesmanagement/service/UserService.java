@@ -48,4 +48,13 @@ public class UserService {
         userJpaRepository.deleteUsersFromTableUsersNotifications(userEntity.getId());
         userJpaRepository.delete(userEntity);
     }
+
+    public void updateUserById(UserDto userDto) {
+        UserEntity userEntity = userJpaRepository.findById(userDto.getId())
+                .orElseThrow(() -> new EntityNotFoundException(UserEntity.class, userDto.getId()));
+        userJpaRepository.updateUserById
+                (userDto.getLogin(), userDto.getPassword(), userDto.getUserType(),
+                        userDto.getName(), userDto.getSurname(), userDto.getActiveUser(),
+                        userEntity.getId());
+    }
 }

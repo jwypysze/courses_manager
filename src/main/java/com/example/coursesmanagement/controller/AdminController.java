@@ -121,6 +121,25 @@ public class AdminController {
         return "update-course-summary";
     }
 
+    @GetMapping("/users/update-user")
+    public String getUpdateUserView(UserDto userDto, Model model) {
+        List<UserDto> allUsers = userService.getAllUsers();
+        model.addAttribute("users", allUsers);
+        model.addAttribute("userToUpdate", userDto);
+        return "update-user";
+    }
+
+    @PostMapping("/users/update")
+    public String updateUserById(UserDto userDto) {
+        userService.updateUserById(userDto);
+        return "redirect:/main-page/users/update-user-summary";
+    }
+
+    @GetMapping("/users/update-user-summary")
+    public String showUpdateUserSummary() {
+        return "update-user-summary";
+    }
+
     @GetMapping("/blocks/update-block")
     public String getUpdateBlockView(Model model, BlockDto blockDto) {
         List<BlockDto> allBlocks = blockService.getAllBlocks();
