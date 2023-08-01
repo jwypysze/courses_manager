@@ -57,4 +57,25 @@ public class UserService {
                         userDto.getName(), userDto.getSurname(), userDto.getActiveUser(),
                         userEntity.getId());
     }
+
+    public UserDto findUserById(Long userId) {
+        UserEntity userEntity = userJpaRepository
+                .findById(userId).orElseThrow(() ->
+                        new EntityNotFoundException(UserEntity.class, userId));
+        UserDto userDto = new UserDto(userEntity.getId(), userEntity.getLogin(),
+                userEntity.getPassword(), userEntity.getUserType(), userEntity.getName(),
+                userEntity.getSurname(), userEntity.getActiveUser());
+        return userDto;
+    }
+
+    public UserDto findUserByNameAndSurname(String name, String surname) {
+        UserEntity userEntity = userJpaRepository.findUserByNameAndSurname(name, surname)
+                .orElseThrow(() ->
+                new jakarta.persistence.EntityNotFoundException
+                        ("There is no user with the provided name and surname"));
+        UserDto userDto = new UserDto(userEntity.getId(), userEntity.getLogin(),
+                userEntity.getPassword(), userEntity.getUserType(),
+                userEntity.getName(), userEntity.getSurname(), userEntity.getActiveUser());
+        return userDto;
+    }
 }

@@ -10,6 +10,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface UserJpaRepository extends JpaRepository<UserEntity,Long> {
 
@@ -36,4 +38,6 @@ public interface UserJpaRepository extends JpaRepository<UserEntity,Long> {
                          @Param("isActive") ActiveUser activeUser,
                          @Param("userId") Long userId);
 
+
+    Optional<UserEntity> findUserByNameAndSurname(String name, String surname);
 }

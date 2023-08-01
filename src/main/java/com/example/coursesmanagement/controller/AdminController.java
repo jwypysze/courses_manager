@@ -76,11 +76,11 @@ public class AdminController {
         return "/admin/courses/add-course-summary";
     }
 
-    @GetMapping("/all-courses-for-admin")
+    @GetMapping("/all-courses")
     public String getAllCourses(Model model) {
         List<CourseDto> coursesFromDb = courseService.getAllCourses();
         model.addAttribute("courses", coursesFromDb);
-        return "/admin/courses/all-courses-for-admin";
+        return "/admin/courses/all-courses";
     }
 
     @GetMapping("/courses/delete-course-summary")
