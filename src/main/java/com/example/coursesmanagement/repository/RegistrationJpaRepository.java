@@ -1,6 +1,5 @@
 package com.example.coursesmanagement.repository;
 
-import com.example.coursesmanagement.model.dto.RegistrationDto;
 import com.example.coursesmanagement.model.entity.CourseEntity;
 import com.example.coursesmanagement.model.entity.RegistrationEntity;
 import com.example.coursesmanagement.model.entity.UserEntity;
@@ -11,7 +10,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
 import java.util.List;
 
 @Repository

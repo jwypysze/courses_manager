@@ -20,18 +20,23 @@ public class NotificationDto {
     private String text;
     private ClassEntity classEntity;
     private String classTopic;
-    private LocalDate date;
-    private LocalTime time;
+    private LocalDate classDate;
+    private LocalTime classTime;
+    private String blockTitle;
+    private String courseTitle;
     private Long classId;
 
     public NotificationDto(Long id, String topic, String text,
-                           String classTopic, LocalDate date, LocalTime time) {
+                           String classTopic, LocalDate classDate, LocalTime classTime,
+                           String blockTitle, String courseTitle) {
         this.id = id;
         this.topic = topic;
         this.text = text;
         this.classTopic = classTopic;
-        this.date = date;
-        this.time = time;
+        this.classDate = classDate;
+        this.classTime = classTime;
+        this.blockTitle = blockTitle;
+        this.courseTitle = courseTitle;
     }
 
     public NotificationDto(String topic, String text, Long classId) {

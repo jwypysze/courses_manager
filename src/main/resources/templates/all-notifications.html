@@ -11,15 +11,17 @@
 
 <body style="background-color: #f6f6f6">
 <div class="container" style="margin-top: 100px; background-color: white; padding: 50px; border-radius:20px;">
-    <table align="center" style="text-align: center; width:80%">
+    <table align="center" style="text-align: center; width:100%">
         <thead>
         <tr style="background-color: palegreen; width: 100%; height: 30px">
             <th>Id</th>
             <th>Topic</th>
             <th>Text</th>
             <th>Class topic</th>
-            <th>Date</th>
-            <th>Time</th>
+            <th>Class date</th>
+            <th>Class time</th>
+            <th>Block title</th>
+            <th>Course title</th>
         </tr>
         </thead>
         <tbody>
@@ -28,8 +30,10 @@
             <td th:text="${notification.topic}"></td>
             <td th:text="${notification.text}"></td>
             <td th:text="${notification.classTopic}"></td>
-            <td th:text="${notification.date}"></td>
-            <td th:text="${notification.time}"></td>
+            <td th:text="${notification.classDate}"></td>
+            <td th:text="${notification.classTime}"></td>
+            <td th:text="${notification.blockTitle}"></td>
+            <td th:text="${notification.courseTitle}"></td>
         </tr>
         </tbody>
     </table>

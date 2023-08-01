@@ -40,9 +40,11 @@ public class NotificationService {
                 .map(notificationEntity ->
                         new NotificationDto(notificationEntity.getId(), notificationEntity.getTopic(),
                                 notificationEntity.getText(),
-                                notificationEntity.getClassEntity().getTopic()
-                                ,notificationEntity.getClassEntity().getDate(),
-                                notificationEntity.getClassEntity().getTime()))
+                                notificationEntity.getClassEntity().getTopic(),
+                                notificationEntity.getClassEntity().getDate(),
+                                notificationEntity.getClassEntity().getTime(),
+                                notificationEntity.getClassEntity().getBlockEntity().getBlockTitle(),
+                                notificationEntity.getClassEntity().getBlockEntity().getCourseEntity().getTitle()))
                 .toList();
     }
 

@@ -12,13 +12,11 @@ import com.example.coursesmanagement.repository.CourseJpaRepository;
 import com.example.coursesmanagement.repository.NotificationJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.propertyeditors.ClassEditor;
-import org.springframework.cglib.core.Block;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor

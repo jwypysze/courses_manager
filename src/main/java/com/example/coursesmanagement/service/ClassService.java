@@ -3,7 +3,6 @@ package com.example.coursesmanagement.service;
 import com.example.coursesmanagement.exception.exceptions.EntityNotFoundException;
 import com.example.coursesmanagement.model.dto.BlockDto;
 import com.example.coursesmanagement.model.dto.ClassDto;
-import com.example.coursesmanagement.model.dto.CourseDto;
 import com.example.coursesmanagement.model.entity.BlockEntity;
 import com.example.coursesmanagement.model.entity.ClassEntity;
 import com.example.coursesmanagement.repository.BlockJpaRepository;
