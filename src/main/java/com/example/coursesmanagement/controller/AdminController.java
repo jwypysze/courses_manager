@@ -24,44 +24,44 @@ public class AdminController {
 
     @GetMapping("/courses-manager")
     public String getCoursesManagerView() {
-        return "courses-manager";
+        return "/admin/courses-manager";
     }
 
     @GetMapping("/blocks-manager")
     public String getBlocksManagerView() {
-        return "blocks-manager";
+        return "/admin/blocks-manager";
     }
 
     @GetMapping("/classes-manager")
     public String getClassesManagerView() {
-        return "classes-manager";
+        return "/admin/classes-manager";
     }
 
     @GetMapping("/notifications-manager")
     public String getNotificationsManagerView() {
-        return "notifications-manager";
+        return "/admin/notifications-manager";
     }
 
     @GetMapping("/users-manager")
     public String getUsersManagerView() {
-        return "users-manager";
+        return "/admin/users-manager";
     }
 
     @GetMapping("/registrations-manager")
     public String getRegistrationsManagerView() {
-        return "registrations-manager";
+        return "/admin/registrations-manager";
     }
 
     @GetMapping
     public String getMainPageView() {
-        return "main-page";
+        return "/admin/main-page";
     }
 
 
     @GetMapping("/courses")
     public String getAddCourseView(Model model) {
         model.addAttribute("newCourse", new CourseDto());
-        return "add-course";
+        return "/admin/courses/add-course";
     }
 
     @PostMapping("/courses/add")
@@ -73,19 +73,19 @@ public class AdminController {
 
     @GetMapping("/courses/add-course-summary")
     public String showAddCourseSummary() {
-        return "add-course-summary";
+        return "/admin/courses/add-course-summary";
     }
 
     @GetMapping("/all-courses-for-admin")
     public String getAllCourses(Model model) {
         List<CourseDto> coursesFromDb = courseService.getAllCourses();
         model.addAttribute("courses", coursesFromDb);
-        return "all-courses-for-admin";
+        return "/admin/courses/all-courses-for-admin";
     }
 
     @GetMapping("/courses/delete-course-summary")
     public String showDeleteCourseSummary() {
-        return "delete-course-summary";
+        return "/admin/courses/delete-course-summary";
     }
 
     @GetMapping("/courses/delete-course")
@@ -93,7 +93,7 @@ public class AdminController {
         List<CourseDto> allCourses = courseService.getAllCourses();
         model.addAttribute("courses", allCourses);
         model.addAttribute("courseToDelete", courseDto);
-        return "delete-course";
+        return "/admin/courses/delete-course";
     }
 
     @PostMapping("/courses/delete")
@@ -107,7 +107,7 @@ public class AdminController {
         List<CourseDto> allCourses = courseService.getAllCourses();
         model.addAttribute("courses", allCourses);
         model.addAttribute("courseToUpdate", courseDto);
-        return "update-course";
+        return "/admin/courses/update-course";
     }
 
     @GetMapping("/registrations/update-registration")
@@ -119,7 +119,7 @@ public class AdminController {
         List<UserDto> allUsers = userService.getAllUsers();
         model.addAttribute("users", allUsers);
         model.addAttribute("registrationToUpdate", registrationDto);
-        return "update-registration";
+        return "/admin/registrations/update-registration";
     }
 
     @PostMapping("/registrations/update")
@@ -130,7 +130,7 @@ public class AdminController {
 
     @GetMapping("/registrations/update-registration-summary")
     public String showUpdateRegistrationSummary() {
-        return "update-registration-summary";
+        return "/admin/registrations/update-registration-summary";
     }
 
     @PostMapping("/courses/update")
@@ -142,7 +142,7 @@ public class AdminController {
 
     @GetMapping("/courses/update-course-summary")
     public String showUpdateCourseSummary() {
-        return "update-course-summary";
+        return "/admin/courses/update-course-summary";
     }
 
     @GetMapping("/users/update-user")
@@ -150,7 +150,7 @@ public class AdminController {
         List<UserDto> allUsers = userService.getAllUsers();
         model.addAttribute("users", allUsers);
         model.addAttribute("userToUpdate", userDto);
-        return "update-user";
+        return "/admin/users/update-user";
     }
 
     @PostMapping("/users/update")
@@ -161,7 +161,7 @@ public class AdminController {
 
     @GetMapping("/users/update-user-summary")
     public String showUpdateUserSummary() {
-        return "update-user-summary";
+        return "/admin/users/update-user-summary";
     }
 
     @GetMapping("/blocks/update-block")
@@ -171,7 +171,7 @@ public class AdminController {
         List<CourseDto> allCourses = courseService.getAllCourses();
         model.addAttribute("courses", allCourses);
         model.addAttribute("blockToUpdate", blockDto);
-        return "update-block";
+        return "/admin/blocks/update-block";
     }
 
     @PostMapping("/blocks/update")
@@ -182,7 +182,7 @@ public class AdminController {
 
     @GetMapping("/blocks/update-block-summary")
     public String showUpdateBlockSummary() {
-        return "update-block-summary";
+        return "/admin/blocks/update-block-summary";
     }
 
     @GetMapping("/classes/update-class")
@@ -192,7 +192,7 @@ public class AdminController {
         List<ClassDto> allClasses = classService.getAllClasses();
         model.addAttribute("classes", allClasses);
         model.addAttribute("classToUpdate", classDto);
-        return "update-class";
+        return "/admin/classes/update-class";
     }
 
     @PostMapping("/classes/update")
@@ -203,7 +203,7 @@ public class AdminController {
 
     @GetMapping("/classes/update-class-summary")
     public String showUpdateClassSummary() {
-        return "update-class-summary";
+        return "/admin/classes/update-class-summary";
     }
 
     @GetMapping("/notifications/update-notification")
@@ -213,7 +213,7 @@ public class AdminController {
         List<NotificationDto> allNotifications = notificationService.getAllNotifications();
         model.addAttribute("notifications", allNotifications);
         model.addAttribute("notificationToUpdate", notificationDto);
-        return "update-notification";
+        return "/admin/notifications/update-notification";
     }
 
     @PostMapping("/notifications/update")
@@ -224,7 +224,7 @@ public class AdminController {
 
     @GetMapping("/notifications/update-notification-summary")
     public String showUpdateNotificationSummary() {
-        return "update-notification-summary";
+        return "/admin/notifications/update-notification-summary";
     }
 
     @GetMapping("/courses/details/{courseId}")
@@ -233,7 +233,7 @@ public class AdminController {
         model.addAttribute("courseById", courseById);
         List<BlockDto> blocksInCourse = blockService.findBlocksInCourse(courseById);
         model.addAttribute("blocksInCourse", blocksInCourse);
-        return "course-details";
+        return "/admin/courses/course-details";
     }
 
     @GetMapping("/blocks/details/{blockId}")
@@ -242,23 +242,20 @@ public class AdminController {
         model.addAttribute("blockById", blockById);
         List<ClassDto> classesInBlock = classService.findClassesInBlock(blockById);
         model.addAttribute("classesInBlock", classesInBlock);
-        return "block-details";
+        return "/admin/blocks/block-details";
     }
-
-
-
 
     @GetMapping("/all-users")
     public String getAllUsers(Model model) {
         List<UserDto> allUsers = userService.getAllUsers();
         model.addAttribute("users", allUsers);
-        return "all-users";
+        return "/admin/users/all-users";
     }
 
     @GetMapping("/users")
     public String getAddUserView(Model model) {
         model.addAttribute("newUser", new UserDto());
-        return "add-user";
+        return "/admin/users/add-user";
     }
 
     @PostMapping("/users/add")
@@ -269,7 +266,7 @@ public class AdminController {
 
     @GetMapping("/users/add-user-summary")
     public String showAddUserSummary() {
-        return "add-user-summary";
+        return "/admin/users/add-user-summary";
     }
 
     @GetMapping("/users/delete-user")
@@ -277,7 +274,7 @@ public class AdminController {
         List<UserDto> allUsers = userService.getAllUsers();
         model.addAttribute("users", allUsers);
         model.addAttribute("userToDelete", userDto);
-        return "delete-user";
+        return "/admin/users/delete-user";
     }
 
     @PostMapping("/users/delete")
@@ -288,7 +285,7 @@ public class AdminController {
 
     @GetMapping("/users/delete-user-summary")
     public String showDeleteUserSummary() {
-        return "delete-user-summary";
+        return "/admin/users/delete-user-summary";
     }
 
     @GetMapping("/blocks")
@@ -296,7 +293,7 @@ public class AdminController {
         model.addAttribute("newBlock", new BlockDto());
         List<CourseDto> coursesFromDb = courseService.getAllCourses();
         model.addAttribute("courses", coursesFromDb);
-        return "add-block";
+        return "/admin/blocks/add-block";
     }
 
     @PostMapping("/blocks/add")
@@ -307,14 +304,14 @@ public class AdminController {
 
     @GetMapping("/blocks/add-block-summary")
     public String showAddBlockSummary() {
-        return "add-block-summary";
+        return "/admin/blocks/add-block-summary";
     }
 
     @GetMapping("/all-blocks")
     public String getAllBlocks(Model model) {
         List<BlockDto> allBlocks = blockService.getAllBlocks();
         model.addAttribute("blocks", allBlocks);
-        return "all-blocks";
+        return "/admin/blocks/all-blocks";
     }
 
     @GetMapping("/blocks/delete-block")
@@ -322,7 +319,7 @@ public class AdminController {
         List<BlockDto> allBlocks = blockService.getAllBlocks();
         model.addAttribute("blocks", allBlocks);
         model.addAttribute("blockToDelete", blockDto);
-        return "delete-block";
+        return "/admin/blocks/delete-block";
     }
 
     @GetMapping("/registrations/delete-registration")
@@ -330,7 +327,7 @@ public class AdminController {
         List<RegistrationDto> allRegistrations = registrationService.getAllRegistrations();
         model.addAttribute("registrations", allRegistrations);
         model.addAttribute("registrationToDelete", registrationDto);
-        return "delete-registration";
+        return "/admin/registrations/delete-registration";
     }
 
     @PostMapping("/blocks/delete")
@@ -347,12 +344,12 @@ public class AdminController {
 
     @GetMapping("/registrations/delete-registration-summary")
     public String showDeleteRegistrationSummary() {
-        return "delete-registration-summary";
+        return "/admin/registrations/delete-registration-summary";
     }
 
     @GetMapping("/blocks/delete-block-summary")
     public String showDeleteBlockSummary() {
-        return "delete-block-summary";
+        return "/admin/blocks/delete-block-summary";
     }
 
     @GetMapping("/classes")
@@ -360,7 +357,7 @@ public class AdminController {
         model.addAttribute("newClass", new ClassDto());
         List<BlockDto> allBlocks = blockService.getAllBlocks();
         model.addAttribute("blocks", allBlocks);
-        return "add-class";
+        return "/admin/classes/add-class";
     }
 
     @GetMapping("/registrations")
@@ -370,7 +367,7 @@ public class AdminController {
         model.addAttribute("courses", allCourses);
         List<UserDto> allUsers = userService.getAllUsers();
         model.addAttribute("users", allUsers);
-        return "add-registration";
+        return "/admin/registrations/add-registration";
     }
 
     @PostMapping("/classes/add")
@@ -387,19 +384,19 @@ public class AdminController {
 
     @GetMapping("/registrations/add-registration-summary")
     public String showAddRegistrationSummary() {
-        return "add-registration-summary";
+        return "/admin/registrations/add-registration-summary";
     }
 
     @GetMapping("/classes/add-class-summary")
     public String showAddClassSummary() {
-        return "add-class-summary";
+        return "/admin/classes/add-class-summary";
     }
 
     @GetMapping("/all-classes")
     public String getAllClasses(Model model) {
         List<ClassDto> allClasses = classService.getAllClasses();
         model.addAttribute("classes", allClasses);
-        return "all-classes";
+        return "/admin/classes/all-classes";
     }
 
     @GetMapping("/classes/delete-class")
@@ -407,7 +404,7 @@ public class AdminController {
         List<ClassDto> allClasses = classService.getAllClasses();
         model.addAttribute("classes", allClasses);
         model.addAttribute("classToDelete", classDto);
-        return "delete-class";
+        return "/admin/classes/delete-class";
     }
 
     @PostMapping("/classes/delete")
@@ -418,21 +415,21 @@ public class AdminController {
 
     @GetMapping("/classes/delete-class-summary")
     public String showDeleteClassSummary() {
-        return "delete-class-summary";
+        return "/admin/classes/delete-class-summary";
     }
 
     @GetMapping("/all-notifications")
     public String getAllNotifications(Model model) {
         List<NotificationDto> allNotifications = notificationService.getAllNotifications();
         model.addAttribute("notifications", allNotifications);
-        return "all-notifications";
+        return "/admin/notifications/all-notifications";
     }
 
     @GetMapping("/all-registrations")
     public String getAllRegistrations(Model model) {
         List<RegistrationDto> allRegistrations = registrationService.getAllRegistrations();
         model.addAttribute("registrations", allRegistrations);
-        return "all-registrations";
+        return "/admin/registrations/all-registrations";
     }
 
     @GetMapping("/notifications/delete-notification")
@@ -440,7 +437,7 @@ public class AdminController {
         List<NotificationDto> allNotifications = notificationService.getAllNotifications();
         model.addAttribute("notifications", allNotifications);
         model.addAttribute("notificationToDelete", notificationDto);
-        return "delete-notification";
+        return "/admin/notifications/delete-notification";
     }
 
     @PostMapping("/notifications/delete")
@@ -451,7 +448,7 @@ public class AdminController {
 
     @GetMapping("/notifications/delete-notification-summary")
     public String showDeleteNotificationSummary() {
-        return "delete-notification-summary";
+        return "/admin/notifications/delete-notification-summary";
     }
 
     @GetMapping("/notifications")
@@ -459,7 +456,7 @@ public class AdminController {
         model.addAttribute("newNotification", new NotificationDto());
         List<ClassDto> allClasses = classService.getAllClasses();
         model.addAttribute("classes", allClasses);
-        return "add-notification";
+        return "/admin/notifications/add-notification";
     }
 
     @PostMapping("/notifications/add")
@@ -470,7 +467,7 @@ public class AdminController {
 
     @GetMapping("/notifications/add-notification-summary")
     public String showAddNotificationSummary() {
-        return "add-notification-summary";
+        return "/admin/notifications/add-notification-summary";
     }
 
 
