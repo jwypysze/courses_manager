@@ -5,10 +5,7 @@ import com.example.coursesmanagement.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -49,8 +46,10 @@ public class StudentController {
     }
 
     @PostMapping("/courses/sign-up-for-course")
-    public String addRegistration(RegistrationDto registrationDto) {
-        registrationService.addRegistration(registrationDto);
+    public String addRegistration(RegistrationDto registrationDto,
+                                  @RequestParam(name = "courseId") Long courseId) {
+        registrationDto.setCourseId(courseId);
+        registrationService.addRegistrationByUser(registrationDto);
         return "redirect:/student/registrations/add-registration-summary";
     }
 
@@ -60,14 +59,9 @@ public class StudentController {
     }
 
     @GetMapping("/courses/sign-up-for-course/{courseId}")
-    public String addRegistrationToTheChosenCourse(Model model, @PathVariable Long courseId,
-                                                   String userName, String userSurname) {
+    public String getAddRegistrationToTheChosenCourseView(Model model, @PathVariable Long courseId) {
         CourseDto courseById = courseService.getCourseById(courseId);
         model.addAttribute("course", courseById);
-        model.addAttribute("userName", userName);
-        model.addAttribute("userSurname", userSurname);
-        UserDto userByNameAndSurname = userService.findUserByNameAndSurname(userName, userSurname);
-        Long userId = userByNameAndSurname.getId();
         model.addAttribute("newRegistration", new RegistrationDto());
         return "/student/sign-up-for-course";
     }

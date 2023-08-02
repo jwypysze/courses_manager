@@ -9,27 +9,18 @@
 <body>
 
 
-<div class="container" style="margin-top:100px;">
-    <div class="container" style="text-align: center; font-style: italic; font: 40pt Georgia; color: darkred">Block</div>
-    <table class="table table-striped" align="center" style="text-align: center; width:50%">
-        <thead>
-        <tr style="background-color: palegreen; width: 100%; height: 30px">
-            <th>Id</th>
-            <th>Block title</th>
-            <th>Course title</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td th:text="${blockById.id}"></td>
-            <td th:text="${blockById.blockTitle}"></td>
-            <td th:text="${blockById.courseTitle}"></td>
-        </tr>
-        </tbody>
-    </table>
-
+<div class="container" align="center" style="margin-top:100px">
+    <div class="row" align="center" text-align="center">
+        <div class="block" style="width: 100%; margin-bottom: 25px;">
+            <div th:object="${blockById}" class="block-body">
+                <h5 class="block-title custom-center" th:text="${blockById.blockTitle}">Block title</h5>
+                <a>
+                    <img th:src="@{/uploads/blocks.png}" class="responsive" />
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
-
 
 
 <div class="container" style="margin-top: 100px; background-color: white; padding: 50px; border-radius:20px;">

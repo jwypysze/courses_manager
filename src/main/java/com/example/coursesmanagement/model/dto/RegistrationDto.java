@@ -22,6 +22,7 @@ public class RegistrationDto {
     private String userName;
     private String userSurname;
     private String courseTitle;
+    private String courseImageName;
 
     public RegistrationDto(Long id, LocalDate date, LocalTime time, Long userId, Long courseId) {
         this.id = id;
@@ -39,5 +40,11 @@ public class RegistrationDto {
         this.userName = userName;
         this.userSurname = userSurname;
         this.courseTitle = courseTitle;
+    }
+
+    public RegistrationDto(String userName, String userSurname, Long courseId) {
+        this.userName = userName;
+        this.userSurname = userSurname;
+        this.courseId = courseId;
     }
 }

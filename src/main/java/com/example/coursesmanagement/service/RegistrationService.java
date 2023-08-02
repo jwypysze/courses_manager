@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -63,4 +64,16 @@ public class RegistrationService {
                 (registrationDto.getUserId(), registrationDto.getCourseId(), registrationEntity.getId());
     }
 
+    public void addRegistrationByUser(RegistrationDto registrationDto) {
+        CourseEntity courseEntity = courseJpaRepository.findById(registrationDto.getCourseId())
+                .orElseThrow(() ->
+                        new EntityNotFoundException(CourseEntity.class, registrationDto.getCourseId()));
+        UserEntity userEntity = userJpaRepository.findUserByNameAndSurname
+                        (registrationDto.getUserName(), registrationDto.getUserSurname())
+                .orElseThrow(() ->
+                        new jakarta.persistence.EntityNotFoundException
+                                ("User with provided name and surname doesn't exist!"));
+        RegistrationEntity registrationEntity = new RegistrationEntity(userEntity, courseEntity);
+        registrationJpaRepository.save(registrationEntity);
+    }
 }

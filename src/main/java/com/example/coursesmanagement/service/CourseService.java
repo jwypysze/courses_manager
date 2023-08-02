@@ -103,7 +103,8 @@ public class CourseService {
     public CourseDto getCourseById(Long courseId) {
         CourseEntity courseEntity = courseJpaRepository.findById(courseId)
                 .orElseThrow(() -> new EntityNotFoundException(CourseEntity.class, courseId));
-        return new CourseDto(courseEntity.getId(), courseEntity.getTitle(), null);
+        return new CourseDto(courseEntity.getId(), courseEntity.getTitle(),
+                courseEntity.getImageName());
     }
 
     public void updateCourseById(CourseDto courseDto, MultipartFile file) {
