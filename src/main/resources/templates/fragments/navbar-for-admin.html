@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Navbar</title>
+</head>
+<body>
+<nav class="navbar custom-navbar" th:fragment="nav">
+    <div class="container-fluid">
+        <a sec:authorize="hasAuthority('ADMIN')" class="navbar-brand" th:href="@{/main-page}">Courses Manager</a>
+        <a sec:authorize="hasAuthority('ADMIN')" class="navbar-brand" th:href="@{/main-page/courses-manager}">Courses</a>
+        <a sec:authorize="hasAuthority('ADMIN')" class="navbar-brand" th:href="@{/main-page/blocks-manager}">Blocks</a>
+        <a sec:authorize="hasAuthority('ADMIN')" class="navbar-brand" th:href="@{/main-page/classes-manager}">Classes</a>
+        <a sec:authorize="hasAuthority('ADMIN')" class="navbar-brand" th:href="@{/main-page/users-manager}">Users</a>
+        <a sec:authorize="hasAuthority('ADMIN')" class="navbar-brand" th:href="@{/main-page/registrations-manager}">Registrations</a>
+        <a sec:authorize="hasAuthority('ADMIN')" class="navbar-brand" th:href="@{/main-page/notifications-manager}">Notifications</a>
+        <form class="form-inline" th:action="@{/logout}" method="post">
+            <button class="btn btn-outline-success" type="submit">Logout</button>
+        </form>
+    </div>
+</nav>
+</body>
+</html>
