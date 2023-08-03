@@ -2,7 +2,7 @@ package com.example.coursesmanagement.repository;
 
 import com.example.coursesmanagement.model.entity.UserEntity;
 import com.example.coursesmanagement.model.enums.ActiveUser;
-import com.example.coursesmanagement.model.enums.UserType;
+import com.example.coursesmanagement.model.enums.UserRole;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -24,7 +24,7 @@ public interface UserJpaRepository extends JpaRepository<UserEntity,Long> {
 
     @Query
             (value = "UPDATE UserEntity u SET u.login = :newLogin, " +
-                    "u.password = :newPassword, u.userType = :newUserType, " +
+                    "u.password = :newPassword, u.userRole = :newUserRole, " +
                     "u.name = :newName, u.surname = :newSurname, " +
                     "u.activeUser = :isActive WHERE u.id = :userId",
                     nativeQuery = false)
@@ -32,7 +32,7 @@ public interface UserJpaRepository extends JpaRepository<UserEntity,Long> {
     @Transactional
     void updateUserById(@Param("newLogin") String newLogin,
                          @Param("newPassword") String newPassword,
-                         @Param("newUserType") UserType newUserType,
+                         @Param("newUserRole") UserRole newUserRole,
                          @Param("newName") String newName,
                          @Param("newSurname") String newSurname,
                          @Param("isActive") ActiveUser activeUser,
@@ -40,4 +40,7 @@ public interface UserJpaRepository extends JpaRepository<UserEntity,Long> {
 
 
     Optional<UserEntity> findUserByNameAndSurname(String name, String surname);
+
+    UserEntity findByLogin(String login);
+
 }

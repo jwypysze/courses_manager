@@ -1,7 +1,7 @@
 package com.example.coursesmanagement.model.entity;
 
 import com.example.coursesmanagement.model.enums.ActiveUser;
-import com.example.coursesmanagement.model.enums.UserType;
+import com.example.coursesmanagement.model.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,7 +30,7 @@ public class UserEntity {
 
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
-    private UserType userType;
+    private UserRole userRole;
 
     @Column(name = "name")
     private String name;
@@ -53,10 +53,10 @@ public class UserEntity {
     private List<NotificationEntity> notifications = new ArrayList<>();
 
     public UserEntity
-            (String login, String password, UserType userType, String name, String surname, ActiveUser activeUser) {
+            (String login, String password, UserRole userRole, String name, String surname, ActiveUser activeUser) {
         this.login = login;
         this.password = password;
-        this.userType = userType;
+        this.userRole = userRole;
         this.name = name;
         this.surname = surname;
         this.activeUser = activeUser;

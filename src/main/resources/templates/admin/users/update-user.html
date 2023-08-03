@@ -15,7 +15,7 @@
             <th>Id</th>
             <th>Login</th>
             <th>Password</th>
-            <th>Type</th>
+            <th>Role</th>
             <th>Name</th>
             <th>Surname</th>
             <th>Active</th>
@@ -26,7 +26,7 @@
             <td th:text="${user.id}"></td>
             <td th:text="${user.login}"></td>
             <td th:text="${user.password}"></td>
-            <td th:text="${user.userType}"></td>
+            <td th:text="${user.userRole}"></td>
             <td th:text="${user.name}"></td>
             <td th:text="${user.surname}"></td>
             <td th:text="${user.activeUser}"></td>
@@ -51,8 +51,8 @@
                 <input type="text" class="form-control" id="user-new-password" th:field="*{password}">
             </div>
             <div>
-                <label for="user-new-type" class="form-label">New user type</label>
-                <input type="text" placeholder="ADMIN or STUDENT or TEACHER" class="form-control" id="user-new-type" th:field="*{userType}">
+                <label for="user-new-type" class="form-label">New user role</label>
+                <input type="text" placeholder="ADMIN or STUDENT or TEACHER" class="form-control" id="user-new-type" th:field="*{userRole}">
             </div>
             <div>
                 <label for="user-new-name" class="form-label">New user name</label>

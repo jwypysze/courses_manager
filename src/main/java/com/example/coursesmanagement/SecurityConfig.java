@@ -18,8 +18,9 @@ public class SecurityConfig{
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests(req -> req
                 .requestMatchers
-                        ("/main-page/**", "/uploads/**").hasAuthority("ADMIN")
-                .requestMatchers("/student/**").hasAuthority("USER"))
+                        ("/main-page/**").hasAuthority("ADMIN")
+                .requestMatchers("/student/**").hasAuthority("STUDENT")
+                        .requestMatchers("/uploads/**").permitAll())
                 .formLogin(form -> form.loginPage("/login").permitAll());
         http.logout(logout -> logout.logoutSuccessUrl("/login"));
         return http.build();

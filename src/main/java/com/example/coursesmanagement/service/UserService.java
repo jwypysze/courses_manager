@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +24,7 @@ public class UserService {
         List<UserDto> allUsers = userJpaRepository.findAll().stream()
                 .map(userEntity ->
                         new UserDto(userEntity.getId(), userEntity.getLogin(),
-                                userEntity.getPassword(), userEntity.getUserType(),
+                                userEntity.getPassword(), userEntity.getUserRole(),
                                 userEntity.getName(), userEntity.getSurname(),
                                 userEntity.getActiveUser()))
                 .toList();
@@ -35,7 +34,7 @@ public class UserService {
 
     public void addUser(UserDto userDto) {
         UserEntity userEntity = new UserEntity
-                (userDto.getLogin(), userDto.getPassword(), userDto.getUserType(),
+                (userDto.getLogin(), userDto.getPassword(), userDto.getUserRole(),
                         userDto.getName(), userDto.getSurname(), userDto.getActiveUser());
         userJpaRepository.save(userEntity);
     }
@@ -76,7 +75,7 @@ public class UserService {
         UserEntity userEntity = userJpaRepository.findById(userDto.getId())
                 .orElseThrow(() -> new EntityNotFoundException(UserEntity.class, userDto.getId()));
         userJpaRepository.updateUserById
-                (userDto.getLogin(), userDto.getPassword(), userDto.getUserType(),
+                (userDto.getLogin(), userDto.getPassword(), userDto.getUserRole(),
                         userDto.getName(), userDto.getSurname(), userDto.getActiveUser(),
                         userEntity.getId());
     }
@@ -86,7 +85,7 @@ public class UserService {
                 .findById(userId).orElseThrow(() ->
                         new EntityNotFoundException(UserEntity.class, userId));
         UserDto userDto = new UserDto(userEntity.getId(), userEntity.getLogin(),
-                userEntity.getPassword(), userEntity.getUserType(), userEntity.getName(),
+                userEntity.getPassword(), userEntity.getUserRole(), userEntity.getName(),
                 userEntity.getSurname(), userEntity.getActiveUser());
         return userDto;
     }
@@ -97,8 +96,9 @@ public class UserService {
                 new jakarta.persistence.EntityNotFoundException
                         ("There is no user with the provided name and surname"));
         UserDto userDto = new UserDto(userEntity.getId(), userEntity.getLogin(),
-                userEntity.getPassword(), userEntity.getUserType(),
+                userEntity.getPassword(), userEntity.getUserRole(),
                 userEntity.getName(), userEntity.getSurname(), userEntity.getActiveUser());
         return userDto;
     }
+
 }
