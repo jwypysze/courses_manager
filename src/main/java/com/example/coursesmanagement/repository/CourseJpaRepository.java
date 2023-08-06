@@ -19,4 +19,5 @@ public interface CourseJpaRepository extends JpaRepository<CourseEntity,Long> {
     void updateCourseById(@Param("newTitle") String newTitle,
                           @Param("newImageName") String newImageName,
                           @Param("courseId") Long courseId);
+
 }
