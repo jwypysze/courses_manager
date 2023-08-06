@@ -9,8 +9,7 @@
 </head>
 <body style="background-color: lightgreen">
 <div th:insert="fragments/navbar-for-admin::nav"></div>
-<h2 style="text-align: center; color: darkgreen; font-family: Brush Script MT; font-size: 60pt; margin-top: 2
-0px">Courses</h2>
+<h2 style="text-align: center; color: darkgreen; font-family: Brush Script MT; font-size: 60pt; margin-top: 20px">Courses</h2>
 <div class="container" style="margin-top:20px; background-color: palegreen; margin-bottom: 100px">
     <div class="row" align="center" text-align="center">
         <th:block th:each="course : ${courses}">
@@ -22,7 +21,6 @@
                             <img th:src="@{/uploads/__${course.imageName}__}" th:alt="${course.imageName}" class="responsive" />
                         </a>
                     </div>
-
                 </div>
             </div>
         </th:block>
