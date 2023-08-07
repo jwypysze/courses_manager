@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Delete class</title>
+    <title>Delete notification</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
-<body>
+<body style="background-color: lightgreen">
 <div th:insert="fragments/navbar-for-admin::nav"></div>
-<div class="container" style="margin-top: 100px; background-color: white; padding: 50px; border-radius:20px;">
-    <table align="center" style="text-align: center; width: 100%">
-        <thead>
-        <tr style="background-color: palegreen; width: 100%; height: 30px">
+<div class="container" style="background-color: palegreen; padding: 50px; border-radius:20px; margin-top: 10px">
+    <h2 style="text-align: center; font-size: 60pt; font-family: Brush Script MT; color: darkgreen">Notifications</h2>
+    <table class="table table-striped" align="center" style="text-align: center; width:100%; background-color: palegreen; border-color: darkgreen;">
+        <thead style="margin-top: 10px">
+        <tr style="background-color: palegreen; width: 100%; color: darkgreen; font-family: Brush Script MT; font-size: 30pt">
             <th>Id</th>
             <th>Topic</th>
             <th>Text</th>
@@ -23,7 +24,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="notification : ${notifications}">
+        <tr th:each="notification : ${notifications}" style="background-color: palegreen; width: 100%; color: darkgreen;">
             <td th:text="${notification.id}"></td>
             <td th:text="${notification.topic}"></td>
             <td th:text="${notification.text}"></td>
@@ -35,37 +36,22 @@
         </tr>
         </tbody>
     </table>
-
 </div>
-
-
-<div class="container" style="text-align: center; font-style: italic; font: 40pt Georgia; color: darkred">Delete notification</div>
-
-
-<div class="container" style="margin-top:100px;">
+<div class="container" style="background-color: palegreen; border-color: darkgreen; font-family: Brush Script MT; margin-top:10px">
+    <h2 style="text-align: center; font-size: 60pt; color: darkgreen">Delete notification</h2>
+</div>
+<div class="container" style="background-color: palegreen; margin-top:10px; margin-bottom: 30px">
     <div class="row">
         <form th:action="@{/main-page/notifications/delete}" th:object="${notificationToDelete}" method="post">
             <div class="mb-3">
-                <label for="notification-id" class="form-label">Notification id</label>
-                <input type="text" placeholder="Type id of EXISTING notification" class="form-control" id="notification-id" th:field="*{id}">
+                <label style="color: darkgreen; font-family: Brush Script MT; font-size: 30pt" for="notification-id" class="form-label">Notification id</label>
+                <input style="background-color: darkgreen; color: palegreen" type="text" placeholder="Type id of EXISTING notification" class="form-control" id="notification-id" th:field="*{id}">
             </div>
             <div align="center">
-                <button type="submit" class="btn btn-primary" style="width: 40%">Delete</button>
+                <button type="submit" class="btn btn-primary" style="width: 30%; margin-bottom: 15px; background-color: darkgreen; border-color: darkgreen; color: palegreen">Delete</button>
             </div>
         </form>
     </div>
-</div>
-<br/>
-<div align="center">
-    <form th:action="@{/main-page/notifications-manager}">
-        <button type="submit" class="btn btn-primary" style="width: 40%">Back to the Notifications Manager</button>
-    </form>
-</div>
-<br/>
-<div align="center">
-    <form th:action="@{/main-page}">
-        <button type="submit" class="btn btn-primary" style="width: 40%">Back to main page</button>
-    </form>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
