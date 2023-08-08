@@ -52,11 +52,6 @@ public class BlockService {
                 blockEntity.getCourseEntity().getTitle());
     }
 
-    public List<Long> findBlocksByCourse(CourseEntity courseEntity) {
-        List<Long> blocksIdByCourse = blockJpaRepository.findBlocksByCourse(courseEntity);
-        return blocksIdByCourse;
-    }
-
     public void deleteBlockById(BlockDto blockDto) {
         BlockEntity blockEntity =
                 blockJpaRepository.findById(blockDto.getId())
@@ -87,10 +82,9 @@ public class BlockService {
                     .orElseThrow(() -> new EntityNotFoundException(BlockEntity.class, blockId));
             blocksEntitiesInCourse.add(blockEntity);
         }
-        List<BlockDto> blockDtos = blocksEntitiesInCourse.stream()
+        return blocksEntitiesInCourse.stream()
                 .map(blockEntity -> new BlockDto(blockEntity.getId(), blockEntity.getBlockTitle(),
                         blockEntity.getCourseEntity().getTitle())).toList();
-        return blockDtos;
     }
 
     public void updateBlockById(BlockDto blockDto) {

@@ -40,10 +40,6 @@ public class ClassService {
                 .toList();
     }
 
-    public List<Long> findClassesByBlock(BlockEntity blockEntity) {
-        return classJpaRepository.findClassesByBlock(blockEntity);
-    }
-
     public void deleteClassById(ClassDto classDto) {
         ClassEntity classEntity = classJpaRepository.findById(classDto.getId())
                 .orElseThrow(() -> new EntityNotFoundException(ClassEntity.class, classDto.getId()));
@@ -65,11 +61,10 @@ public class ClassService {
                     .orElseThrow(() -> new EntityNotFoundException(ClassEntity.class, classId));
             classEntitiesInBlock.add(classEntity);
         }
-        List<ClassDto> classDtos = classEntitiesInBlock.stream()
+        return classEntitiesInBlock.stream()
                 .map(classEntity -> new ClassDto(classEntity.getId(), classEntity.getTopic(),
                         classEntity.getDate(), classEntity.getTime(),
                         classEntity.getBlockEntity().getBlockTitle(), classEntity.getBlockEntity().getCourseEntity().getTitle())).toList();
-        return classDtos;
     }
 
     public void updateClassById(ClassDto classDto) {

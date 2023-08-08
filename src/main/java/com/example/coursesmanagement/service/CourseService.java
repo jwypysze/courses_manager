@@ -30,6 +30,9 @@ public class CourseService {
     private final RegistrationJpaRepository registrationJpaRepository;
 
     public void addCourse(CourseDto courseDto, MultipartFile file) {
+        if (courseDto.getTitle().isBlank() || courseDto.getImageName().isBlank()) {
+            throw new IllegalArgumentException();
+        }
         CourseEntity courseEntity = new CourseEntity(courseDto.getTitle(), courseDto.getImageName());
         courseJpaRepository.save(courseEntity);
         saveCourseImage(file);

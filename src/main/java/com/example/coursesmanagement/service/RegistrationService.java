@@ -52,7 +52,9 @@ public class RegistrationService {
     }
 
     public void deleteRegistrationById(RegistrationDto registrationDto) {
-        registrationJpaRepository.deleteById(registrationDto.getId());
+        RegistrationEntity registrationEntity = registrationJpaRepository.findById(registrationDto.getId())
+                .orElseThrow(() -> new EntityNotFoundException(RegistrationEntity.class, registrationDto.getId()));
+        registrationJpaRepository.delete(registrationEntity);
     }
 
     public void updateRegistrationById(RegistrationDto registrationDto) {
