@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -21,7 +20,12 @@ public class StudentController {
     private final RegistrationService registrationService;
     private final UserService userService;
 
-    @GetMapping()
+    @GetMapping
+    public String mainPageForStudent() {
+        return "/student/main-page";
+    }
+
+    @GetMapping("/courses")
     public String getAllCourses(Model model) {
         List<CourseDto> allCourses = courseService.getAllCourses();
         model.addAttribute("courses", allCourses);
@@ -65,6 +69,19 @@ public class StudentController {
         model.addAttribute("course", courseById);
         model.addAttribute("newRegistration", new RegistrationDto());
         return "/student/sign-up-for-course";
+    }
+
+    @GetMapping("/registrations/type-data")
+    public String getStudentRegistrationsTypeData(UserDto userDto, Model model) {
+        model.addAttribute("user", userDto);
+        return "/student/type-data";
+    }
+
+    @PostMapping("/registrations/by-student")
+    public String showRegistrations(UserDto userDto, Model model) {
+        List<RegistrationDto> studentRegistrations = registrationService.findStudentRegistrations(userDto);
+        model.addAttribute("studentRegistrations", studentRegistrations);
+        return "/student/registrations-by-student";
     }
 
 }
