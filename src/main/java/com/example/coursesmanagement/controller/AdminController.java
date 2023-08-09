@@ -279,8 +279,9 @@ public class AdminController {
     }
 
     @PostMapping("/users/delete")
-    public String deleteUserById(UserDto userDto) {
-        userService.deleteUserById(userDto);
+    public String deleteUserById(@RequestParam("idToDelete") Long id) {
+        UserDto userById = userService.findUserById(id);
+        userService.deleteUserById(userById);
         return "redirect:/main-page/users/delete-user-summary";
     }
 
