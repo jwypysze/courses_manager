@@ -72,15 +72,11 @@ public class StudentController {
         return "/student/add-registration-summary";
     }
 
-    @GetMapping("/registrations/type-data")
-    public String getStudentRegistrationsTypeData(UserDto userDto, Model model) {
-        model.addAttribute("user", userDto);
-        return "/student/type-data";
-    }
-
-    @PostMapping("/registrations/by-student")
-    public String showRegistrations(UserDto userDto, Model model) {
-        List<RegistrationDto> studentRegistrations = registrationService.findStudentRegistrations(userDto);
+    @GetMapping("/registrations/by-student")
+    public String showRegistrations(Model model, Principal principal) {
+        String name = principal.getName();
+        UserDto userByUsername = userService.findUserByUsername(name);
+        List<RegistrationDto> studentRegistrations = registrationService.findStudentRegistrations(userByUsername);
         model.addAttribute("studentRegistrations", studentRegistrations);
         return "/student/registrations-by-student";
     }
