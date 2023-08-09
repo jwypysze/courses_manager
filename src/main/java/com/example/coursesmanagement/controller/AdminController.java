@@ -339,8 +339,9 @@ public class AdminController {
     }
 
     @PostMapping("/registrations/delete")
-    public String deleteRegistrationById(RegistrationDto registrationDto) {
-        registrationService.deleteRegistrationById(registrationDto);
+    public String deleteRegistrationById(@RequestParam("idToDelete") Long id) {
+        RegistrationDto registrationById = registrationService.findRegistrationById(id);
+        registrationService.deleteRegistrationById(registrationById);
         return "redirect:/main-page/registrations/delete-registration-summary";
     }
 

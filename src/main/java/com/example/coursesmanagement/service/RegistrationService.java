@@ -99,4 +99,12 @@ public class RegistrationService {
                                 registrationEntity.getCourseEntity().getTitle()))
                 .toList();
     }
+
+    public RegistrationDto findRegistrationById(Long id) {
+        RegistrationEntity registrationEntity = registrationJpaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(RegistrationEntity.class, id));
+        return new RegistrationDto(registrationEntity.getId(), registrationEntity.getDate(),
+                registrationEntity.getTime(), registrationEntity.getUserEntity().getName(),
+                registrationEntity.getUserEntity().getSurname(), registrationEntity.getCourseEntity().getTitle());
+    }
 }
