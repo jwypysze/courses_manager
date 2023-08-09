@@ -410,8 +410,9 @@ public class AdminController {
     }
 
     @PostMapping("/classes/delete")
-    public String deleteClassById(ClassDto classDto) {
-        classService.deleteClassById(classDto);
+    public String deleteClassById(@RequestParam("idToDelete") Long id) {
+        ClassDto classById = classService.findClassById(id);
+        classService.deleteClassById(classById);
         return "redirect:/main-page/classes/delete-class-summary";
     }
 

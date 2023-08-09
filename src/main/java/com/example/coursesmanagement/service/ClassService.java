@@ -75,4 +75,12 @@ public class ClassService {
                 (classDto.getTopic(), classDto.getDate(), classDto.getTime(),
                         classDto.getBlockId(), classEntity.getId());
     }
+
+    public ClassDto findClassById(Long id) {
+        ClassEntity classEntity = classJpaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(ClassEntity.class, id));
+        return new ClassDto(classEntity.getId(), classEntity.getTopic(), classEntity.getDate(),
+                classEntity.getTime(), classEntity.getBlockEntity().getBlockTitle(),
+                classEntity.getBlockEntity().getCourseEntity().getTitle());
+    }
 }
