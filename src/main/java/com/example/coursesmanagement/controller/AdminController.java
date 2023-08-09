@@ -332,8 +332,9 @@ public class AdminController {
     }
 
     @PostMapping("/blocks/delete")
-    public String deleteBlockById(BlockDto blockDto) {
-        blockService.deleteBlockById(blockDto);
+    public String deleteBlockById(@RequestParam("idToDelete") Long id) {
+        BlockDto blockById = blockService.findBlockById(id);
+        blockService.deleteBlockById(blockById);
         return "redirect:/main-page/blocks/delete-block-summary";
     }
 
