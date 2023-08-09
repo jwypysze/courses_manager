@@ -68,4 +68,15 @@ public class NotificationService {
                 (notificationDto.getTopic(), notificationDto.getText(),
                         notificationDto.getClassId(), notificationEntity.getId());
     }
+
+    public NotificationDto findNotificationById(Long id) {
+        NotificationEntity notificationEntity = notificationJpaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(NotificationEntity.class, id));
+        return new NotificationDto(notificationEntity.getId(), notificationEntity.getTopic(),
+                notificationEntity.getText(), notificationEntity.getClassEntity().getTopic(),
+                notificationEntity.getClassEntity().getDate(),
+                notificationEntity.getClassEntity().getTime(),
+                notificationEntity.getClassEntity().getBlockEntity().getBlockTitle(),
+                notificationEntity.getClassEntity().getBlockEntity().getCourseEntity().getTitle());
+    }
 }

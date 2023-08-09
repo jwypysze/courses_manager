@@ -444,8 +444,9 @@ public class AdminController {
     }
 
     @PostMapping("/notifications/delete")
-    public String deleteNotificationById(NotificationDto notificationDto) {
-        notificationService.deleteNotificationById(notificationDto);
+    public String deleteNotificationById(@RequestParam("idToDelete") Long id) {
+        NotificationDto notificationById = notificationService.findNotificationById(id);
+        notificationService.deleteNotificationById(notificationById);
         return "redirect:/main-page/notifications/delete-notification-summary";
     }
 

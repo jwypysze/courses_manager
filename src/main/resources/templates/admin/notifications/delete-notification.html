@@ -12,8 +12,7 @@
     <h2 style="text-align: center; font-size: 60pt; font-family: Brush Script MT; color: darkgreen">Notifications</h2>
     <table class="table table-striped" align="center" style="text-align: center; width:100%; background-color: palegreen; border-color: darkgreen;">
         <thead style="margin-top: 10px">
-        <tr style="background-color: palegreen; width: 100%; color: darkgreen; font-family: Brush Script MT; font-size: 30pt">
-            <th>Id</th>
+        <tr style="background-color: palegreen; width: 100%; color: darkgreen; font-family: Brush Script MT; font-size: 15pt">
             <th>Topic</th>
             <th>Text</th>
             <th>Class topic</th>
@@ -21,11 +20,11 @@
             <th>Class time</th>
             <th>Block title</th>
             <th>Course title</th>
+            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="notification : ${notifications}" style="background-color: palegreen; width: 100%; color: darkgreen;">
-            <td th:text="${notification.id}"></td>
+        <tr th:each="notification, notificationToDelete : ${notifications}" style="background-color: palegreen; width: 100%; color: darkgreen;">
             <td th:text="${notification.topic}"></td>
             <td th:text="${notification.text}"></td>
             <td th:text="${notification.classTopic}"></td>
@@ -33,25 +32,17 @@
             <td th:text="${notification.classTime}"></td>
             <td th:text="${notification.blockTitle}"></td>
             <td th:text="${notification.courseTitle}"></td>
+            <td>
+                <form th:action="@{/main-page/notifications/delete}" method="post">
+                    <div align="center">
+                        <input type="hidden" th:name="idToDelete" th:value="${notification.id}" />
+                        <button style="width: 70%; margin-bottom: 15px; background-color: darkgreen; border-color: darkgreen; color: palegreen" type="submit" class="btn btn-primary">Delete</button>
+                    </div>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
-</div>
-<div class="container" style="background-color: palegreen; border-color: darkgreen; font-family: Brush Script MT; margin-top:10px">
-    <h2 style="text-align: center; font-size: 60pt; color: darkgreen">Delete notification</h2>
-</div>
-<div class="container" style="background-color: palegreen; margin-top:10px; margin-bottom: 30px">
-    <div class="row">
-        <form th:action="@{/main-page/notifications/delete}" th:object="${notificationToDelete}" method="post">
-            <div class="mb-3">
-                <label style="color: darkgreen; font-family: Brush Script MT; font-size: 30pt" for="notification-id" class="form-label">Notification id</label>
-                <input style="background-color: darkgreen; color: palegreen" type="text" placeholder="Type id of EXISTING notification" class="form-control" id="notification-id" th:field="*{id}">
-            </div>
-            <div align="center">
-                <button type="submit" class="btn btn-primary" style="width: 30%; margin-bottom: 15px; background-color: darkgreen; border-color: darkgreen; color: palegreen">Delete</button>
-            </div>
-        </form>
-    </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
