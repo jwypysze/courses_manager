@@ -68,11 +68,8 @@ public class RegistrationService {
         CourseEntity courseEntity = courseJpaRepository.findById(registrationDto.getCourseId())
                 .orElseThrow(() ->
                         new EntityNotFoundException(CourseEntity.class, registrationDto.getCourseId()));
-        UserEntity userEntity = userJpaRepository.findUserByNameAndSurname
-                        (registrationDto.getUserName(), registrationDto.getUserSurname())
-                .orElseThrow(() ->
-                        new jakarta.persistence.EntityNotFoundException
-                                ("User with provided name and surname doesn't exist!"));
+        UserEntity userEntity = userJpaRepository.findById(registrationDto.getUserId())
+                .orElseThrow(() -> new EntityNotFoundException(UserEntity.class, registrationDto.getUserId()));
         RegistrationEntity registrationEntity = new RegistrationEntity(userEntity, courseEntity);
         registrationJpaRepository.save(registrationEntity);
     }

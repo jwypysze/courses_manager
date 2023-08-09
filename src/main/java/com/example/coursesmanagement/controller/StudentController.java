@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -25,12 +26,7 @@ public class StudentController {
         return "/student/main-page";
     }
 
-    @GetMapping("/courses")
-    public String getAllCourses(Model model) {
-        List<CourseDto> allCourses = courseService.getAllCourses();
-        model.addAttribute("courses", allCourses);
-        return "/student/all-courses";
-    }
+
 
     @GetMapping("/courses/details/{courseId}")
     public String courseDetails(Model model, @PathVariable Long courseId) {
@@ -50,10 +46,23 @@ public class StudentController {
         return "/student/block-details";
     }
 
+
+    @GetMapping("/courses")
+    public String getAllCourses(Model model, CourseDto courseDto) {
+        List<CourseDto> allCourses = courseService.getAllCourses();
+        model.addAttribute("courses", allCourses);
+        model.addAttribute("courseToSignUp", courseDto);
+        return "/student/all-courses";
+    }
+
+
     @PostMapping("/courses/sign-up-for-course")
-    public String addRegistration(RegistrationDto registrationDto,
-                                  @RequestParam(name = "courseId") Long courseId) {
+    public String addRegistration(Principal principal,
+                                  @RequestParam(name = "courseId") Long courseId, RegistrationDto registrationDto) {
+        String name = principal.getName();
+        UserDto userByUsername = userService.findUserByUsername(name);
         registrationDto.setCourseId(courseId);
+        registrationDto.setUserId(userByUsername.getId());
         registrationService.addRegistrationByUser(registrationDto);
         return "redirect:/student/registrations/add-registration-summary";
     }
@@ -61,14 +70,6 @@ public class StudentController {
     @GetMapping("/registrations/add-registration-summary")
     public String showAddRegistrationSummary() {
         return "/student/add-registration-summary";
-    }
-
-    @GetMapping("/courses/sign-up-for-course/{courseId}")
-    public String getAddRegistrationToTheChosenCourseView(Model model, @PathVariable Long courseId) {
-        CourseDto courseById = courseService.getCourseById(courseId);
-        model.addAttribute("course", courseById);
-        model.addAttribute("newRegistration", new RegistrationDto());
-        return "/student/sign-up-for-course";
     }
 
     @GetMapping("/registrations/type-data")

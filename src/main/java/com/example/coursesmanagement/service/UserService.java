@@ -101,4 +101,10 @@ public class UserService {
         return userDto;
     }
 
+    public UserDto findUserByUsername(String name) {
+        UserEntity byLogin = userJpaRepository.findByLogin(name);
+        return new UserDto(byLogin.getId(), byLogin.getLogin(), byLogin.getPassword(),
+                byLogin.getUserRole(), byLogin.getName(),
+                byLogin.getSurname(), byLogin.getActiveUser());
+    }
 }
