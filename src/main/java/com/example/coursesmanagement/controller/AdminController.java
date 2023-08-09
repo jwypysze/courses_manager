@@ -97,8 +97,9 @@ public class AdminController {
     }
 
     @PostMapping("/courses/delete")
-    public String deleteCourseById(CourseDto courseDto) {
-        courseService.deleteCourseById(courseDto);
+    public String deleteCourseById(@RequestParam("idToDelete") Long id) {
+        CourseDto courseById = courseService.findCourseById(id);
+        courseService.deleteCourseById(courseById);
         return "redirect:/main-page/courses/delete-course-summary";
     }
 
