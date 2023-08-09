@@ -73,12 +73,20 @@ public class StudentController {
     }
 
     @GetMapping("/registrations/by-student")
-    public String showRegistrations(Model model, Principal principal) {
+    public String showRegistrations(Model model, Principal principal, RegistrationDto registrationDto) {
         String name = principal.getName();
         UserDto userByUsername = userService.findUserByUsername(name);
         List<RegistrationDto> studentRegistrations = registrationService.findStudentRegistrations(userByUsername);
         model.addAttribute("studentRegistrations", studentRegistrations);
+        model.addAttribute("registrationToDelete", registrationDto);
         return "/student/registrations-by-student";
+    }
+
+    @PostMapping("/registration/delete")
+    public String deleteRegistration(@RequestParam("idToDelete") Long id) {
+        RegistrationDto registrationById = registrationService.findRegistrationById(id);
+        registrationService.deleteRegistrationById(registrationById);
+        return "redirect:/student/registrations/by-student";
     }
 
 }

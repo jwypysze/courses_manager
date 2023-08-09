@@ -13,22 +13,29 @@
     <table class="table table-striped" align="center" style="text-align: center; width:100%; background-color: palegreen; border-color: darkgreen;">
         <thead style="margin-top: 10px">
         <tr style="background-color: palegreen; width: 100%; color: darkgreen; font-family: Brush Script MT; font-size: 40pt">
-            <th>Id</th>
             <th>Date</th>
             <th>Time</th>
             <th>User name</th>
             <th>User surname</th>
             <th>Course title</th>
+            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="registration : ${studentRegistrations}" style="background-color: palegreen; width: 100%; color: darkgreen;">
-            <td th:text="${registration.id}"></td>
+        <tr th:each="registration, registrationToDelete : ${studentRegistrations}" style="background-color: palegreen; width: 100%; color: darkgreen;">
             <td th:text="${registration.date}"></td>
             <td th:text="${registration.time}"></td>
             <td th:text="${registration.userName}"></td>
             <td th:text="${registration.userSurname}"></td>
             <td th:text="${registration.courseTitle}"></td>
+            <td>
+                <form th:action="@{/student/registration/delete}" method="post">
+                    <div align="center">
+                        <input type="hidden" th:name="idToDelete" th:value="${registration.id}" />
+                        <button style="width: 70%; margin-bottom: 15px; background-color: darkgreen; border-color: darkgreen; color: palegreen" type="submit" class="btn btn-primary">Delete</button>
+                    </div>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
