@@ -1,6 +1,8 @@
 package com.example.coursesmanagement.controller;
 
 import com.example.coursesmanagement.model.dto.*;
+import com.example.coursesmanagement.model.enums.ActiveUser;
+import com.example.coursesmanagement.model.enums.UserRole;
 import com.example.coursesmanagement.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -128,18 +130,28 @@ public class AdminController {
     public String getUpdateRegistrationView(Model model, RegistrationDto registrationDto) {
         List<RegistrationDto> allRegistrations = registrationService.getAllRegistrations();
         model.addAttribute("registrations", allRegistrations);
-        List<CourseDto> allCourses = courseService.getAllCourses();
-        model.addAttribute("courses", allCourses);
-        List<UserDto> allUsers = userService.getAllUsers();
-        model.addAttribute("users", allUsers);
-        model.addAttribute("registrationToUpdate", registrationDto);
         return "/admin/registrations/update-registration";
     }
 
+    @GetMapping("/registrations/update/{registrationId}")
+    public String registrationUpdateById(Model model, @PathVariable Long registrationId) {
+        RegistrationDto registrationById = registrationService.findRegistrationById(registrationId);
+        model.addAttribute("registrationById", registrationById);
+        List<UserDto> allUsers = userService.getAllUsers();
+        model.addAttribute("users", allUsers);
+        List<CourseDto> allCourses = courseService.getAllCourses();
+        model.addAttribute("courses", allCourses);
+        return "/admin/registrations/update-registration-by-id";
+    }
     @PostMapping("/registrations/update")
-    public String updateRegistrationById(RegistrationDto registrationDto) {
-        registrationService.updateRegistrationById(registrationDto);
-        return "redirect:/main-page/registrations/update-registration-summary";
+    public String updateRegistrationById(@RequestParam("idToUpdate") Long id,
+                                         @RequestParam("userId") Long userId,
+                                         @RequestParam("courseId") Long courseId) {
+        RegistrationDto registrationById = registrationService.findRegistrationById(id);
+        registrationById.setUserId(userId);
+        registrationById.setCourseId(courseId);
+        registrationService.updateRegistrationById(registrationById);
+        return "redirect:/main-page/registrations/update-registration";
     }
 
     @GetMapping("/registrations/update-registration-summary")
@@ -151,19 +163,33 @@ public class AdminController {
     public String getUpdateUserView(UserDto userDto, Model model) {
         List<UserDto> allUsers = userService.getAllUsers();
         model.addAttribute("users", allUsers);
-        model.addAttribute("userToUpdate", userDto);
         return "/admin/users/update-user";
     }
 
-    @PostMapping("/users/update")
-    public String updateUserById(UserDto userDto) {
-        userService.updateUserById(userDto);
-        return "redirect:/main-page/users/update-user-summary";
+    @GetMapping("/users/update/{userId}")
+    public String userUpdateById(Model model, @PathVariable Long userId) {
+        UserDto userById = userService.findUserById(userId);
+        model.addAttribute("userById", userById);
+        return "/admin/users/update-user-by-id";
     }
 
-    @GetMapping("/users/update-user-summary")
-    public String showUpdateUserSummary() {
-        return "/admin/users/update-user-summary";
+    @PostMapping("/users/update")
+    public String updateUserById(@RequestParam("idToUpdate") Long id,
+                                 @RequestParam("login") String login,
+                                 @RequestParam("password") String password,
+                                 @RequestParam("role") UserRole userRole,
+                                 @RequestParam("name") String name,
+                                 @RequestParam("surname") String surname,
+                                 @RequestParam("active")ActiveUser activeUser) {
+        UserDto userById = userService.findUserById(id);
+        userById.setLogin(login);
+        userById.setPassword(password);
+        userById.setUserRole(userRole);
+        userById.setName(name);
+        userById.setSurname(surname);
+        userById.setActiveUser(activeUser);
+        userService.updateUserById(userById);
+        return "redirect:/main-page/users/update-user";
     }
 
     @GetMapping("/blocks/update-block")
@@ -227,23 +253,31 @@ public class AdminController {
 
     @GetMapping("/notifications/update-notification")
     public String getUpdateNotificationView(Model model, NotificationDto notificationDto) {
-        List<ClassDto> allClasses = classService.getAllClasses();
-        model.addAttribute("classes", allClasses);
         List<NotificationDto> allNotifications = notificationService.getAllNotifications();
         model.addAttribute("notifications", allNotifications);
-        model.addAttribute("notificationToUpdate", notificationDto);
         return "/admin/notifications/update-notification";
     }
 
-    @PostMapping("/notifications/update")
-    public String updateNotificationById(NotificationDto notificationDto) {
-        notificationService.updateNotificationById(notificationDto);
-        return "redirect:/main-page/notifications/update-notification-summary";
+    @GetMapping("/notifications/update/{notificationId}")
+    public String notificationUpdateById(Model model, @PathVariable Long notificationId) {
+        NotificationDto notificationById = notificationService.findNotificationById(notificationId);
+        model.addAttribute("notificationById", notificationById);
+        List<ClassDto> allClasses = classService.getAllClasses();
+        model.addAttribute("classes", allClasses);
+        return "/admin/notifications/update-notification-by-id";
     }
 
-    @GetMapping("/notifications/update-notification-summary")
-    public String showUpdateNotificationSummary() {
-        return "/admin/notifications/update-notification-summary";
+    @PostMapping("/notifications/update")
+    public String updateNotificationById(@RequestParam("idToUpdate") Long id,
+                                         @RequestParam("topic") String topic,
+                                         @RequestParam("text") String text,
+                                         @RequestParam("classId") Long classId) {
+        NotificationDto notificationById = notificationService.findNotificationById(id);
+        notificationById.setTopic(topic);
+        notificationById.setText(text);
+        notificationById.setClassId(classId);
+        notificationService.updateNotificationById(notificationById);
+        return "redirect:/main-page/notifications/update-notification";
     }
 
     @GetMapping("/courses/details/{courseId}")
