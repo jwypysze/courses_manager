@@ -47,6 +47,9 @@
                 <label style="color: darkgreen; font-family: Brush Script MT; font-size: 30pt" for="block-new-course-id" class="form-label">New course id</label>
                 <input style="background-color: darkgreen; color: palegreen" type="text" class="form-control" id="block-new-course-id" th:name="courseId">
             </div>
+<!--            <select name="Course id">-->
+<!--                <option th:each="course : ${courses}" th:text="${course.name}" th:name="courseId" th:value="${course.id}"></option>-->
+<!--            </select>-->
             <div align="center">
                 <input type="hidden" th:name="idToUpdate" th:value="${blockById.id}" />
                 <button type="submit" class="btn btn-primary" style="width: 30%; margin-top: 15px; margin-bottom: 15px; background-color: darkgreen; border-color: darkgreen; color: palegreen">Update</button>
