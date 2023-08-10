@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 
@@ -83,11 +85,6 @@ public class AdminController {
         return "/admin/courses/all-courses";
     }
 
-    @GetMapping("/courses/delete-course-summary")
-    public String showDeleteCourseSummary() {
-        return "/admin/courses/delete-course-summary";
-    }
-
     @GetMapping("/courses/delete-course")
     public String getDeleteCourseView(CourseDto courseDto, Model model) {
         List<CourseDto> allCourses = courseService.getAllCourses();
@@ -100,15 +97,31 @@ public class AdminController {
     public String deleteCourseById(@RequestParam("idToDelete") Long id) {
         CourseDto courseById = courseService.findCourseById(id);
         courseService.deleteCourseById(courseById);
-        return "redirect:/main-page/courses/delete-course-summary";
+        return "redirect:/main-page/courses/delete-course";
     }
 
     @GetMapping("/courses/update-course")
     public String getUpdateCourseView(Model model, CourseDto courseDto) {
         List<CourseDto> allCourses = courseService.getAllCourses();
         model.addAttribute("courses", allCourses);
-        model.addAttribute("courseToUpdate", courseDto);
         return "/admin/courses/update-course";
+    }
+
+    @GetMapping("/courses/update/{courseId}")
+    public String courseUpdateById(Model model, @PathVariable Long courseId) {
+        CourseDto courseById = courseService.getCourseById(courseId);
+        model.addAttribute("courseById", courseById);
+        return "/admin/courses/update-course-by-id";
+    }
+
+    @PostMapping("/courses/update")
+    public String updateCourseById(@RequestParam("idToUpdate") Long id,
+                                   @RequestParam("image") MultipartFile file, @RequestParam("title") String title) {
+        CourseDto courseById = courseService.findCourseById(id);
+        courseById.setImageName(file.getOriginalFilename());
+        courseById.setTitle(title);
+        courseService.updateCourseById(courseById, file);
+        return "redirect:/main-page/courses/update-course";
     }
 
     @GetMapping("/registrations/update-registration")
@@ -134,18 +147,6 @@ public class AdminController {
         return "/admin/registrations/update-registration-summary";
     }
 
-    @PostMapping("/courses/update")
-    public String updateCourseById(CourseDto courseDto, @RequestParam("image") MultipartFile file) {
-        courseDto.setImageName(file.getOriginalFilename());
-        courseService.updateCourseById(courseDto, file);
-        return "redirect:/main-page/courses/update-course-summary";
-    }
-
-    @GetMapping("/courses/update-course-summary")
-    public String showUpdateCourseSummary() {
-        return "/admin/courses/update-course-summary";
-    }
-
     @GetMapping("/users/update-user")
     public String getUpdateUserView(UserDto userDto, Model model) {
         List<UserDto> allUsers = userService.getAllUsers();
@@ -169,43 +170,60 @@ public class AdminController {
     public String getUpdateBlockView(Model model, BlockDto blockDto) {
         List<BlockDto> allBlocks = blockService.getAllBlocks();
         model.addAttribute("blocks", allBlocks);
-        List<CourseDto> allCourses = courseService.getAllCourses();
-        model.addAttribute("courses", allCourses);
-        model.addAttribute("blockToUpdate", blockDto);
         return "/admin/blocks/update-block";
     }
 
-    @PostMapping("/blocks/update")
-    public String updateBlockById(BlockDto blockDto) {
-        blockService.updateBlockById(blockDto);
-        return "redirect:/main-page/blocks/update-block-summary";
+    @GetMapping("/blocks/update/{blockId}")
+    public String blockUpdateById(Model model, @PathVariable Long blockId) {
+        BlockDto blockById = blockService.findBlockById(blockId);
+        model.addAttribute("blockById", blockById);
+        List<CourseDto> allCourses = courseService.getAllCourses();
+        model.addAttribute("courses", allCourses);
+        return "/admin/blocks/update-block-by-id";
     }
 
-    @GetMapping("/blocks/update-block-summary")
-    public String showUpdateBlockSummary() {
-        return "/admin/blocks/update-block-summary";
+    @PostMapping("/blocks/update")
+    public String updateBlockById(@RequestParam("idToUpdate") Long id,
+                                  @RequestParam("title") String title,
+                                  @RequestParam("courseId") Long courseId) {
+        BlockDto blockById = blockService.findBlockById(id);
+        blockById.setBlockTitle(title);
+        blockById.setCourseId(courseId);
+        blockService.updateBlockById(blockById);
+        return "redirect:/main-page/blocks/update-block";
     }
 
     @GetMapping("/classes/update-class")
     public String getUpdateClassView(Model model, ClassDto classDto) {
-        List<BlockDto> allBlocks = blockService.getAllBlocks();
-        model.addAttribute("blocks", allBlocks);
         List<ClassDto> allClasses = classService.getAllClasses();
         model.addAttribute("classes", allClasses);
-        model.addAttribute("classToUpdate", classDto);
         return "/admin/classes/update-class";
     }
 
-    @PostMapping("/classes/update")
-    public String updateClassById(ClassDto classDto) {
-        classService.updateClassById(classDto);
-        return "redirect:/main-page/classes/update-class-summary";
+    @GetMapping("/classes/update/{classId}")
+    public String classUpdateById(Model model, @PathVariable Long classId) {
+        ClassDto classById = classService.findClassById(classId);
+        model.addAttribute("classById", classById);
+        List<BlockDto> allBlocks = blockService.getAllBlocks();
+        model.addAttribute("blocks", allBlocks);
+        return "/admin/classes/update-class-by-id";
     }
 
-    @GetMapping("/classes/update-class-summary")
-    public String showUpdateClassSummary() {
-        return "/admin/classes/update-class-summary";
+    @PostMapping("/classes/update")
+    public String updateClassById(@RequestParam("idToUpdate") Long id,
+                                  @RequestParam("topic") String topic,
+                                  @RequestParam("date") LocalDate date,
+                                  @RequestParam("time") LocalTime time,
+                                  @RequestParam("blockId") Long blockId) {
+        ClassDto classById = classService.findClassById(id);
+        classById.setTopic(topic);
+        classById.setDate(date);
+        classById.setTime(time);
+        classById.setBlockId(blockId);
+        classService.updateClassById(classById);
+        return "redirect:/main-page/classes/update-class";
     }
+
 
     @GetMapping("/notifications/update-notification")
     public String getUpdateNotificationView(Model model, NotificationDto notificationDto) {
@@ -282,7 +300,7 @@ public class AdminController {
     public String deleteUserById(@RequestParam("idToDelete") Long id) {
         UserDto userById = userService.findUserById(id);
         userService.deleteUserById(userById);
-        return "redirect:/main-page/users/delete-user-summary";
+        return "redirect:/main-page/users/delete-user";
     }
 
     @GetMapping("/users/delete-user-summary")
@@ -336,14 +354,14 @@ public class AdminController {
     public String deleteBlockById(@RequestParam("idToDelete") Long id) {
         BlockDto blockById = blockService.findBlockById(id);
         blockService.deleteBlockById(blockById);
-        return "redirect:/main-page/blocks/delete-block-summary";
+        return "redirect:/main-page/blocks/delete-block";
     }
 
     @PostMapping("/registrations/delete")
     public String deleteRegistrationById(@RequestParam("idToDelete") Long id) {
         RegistrationDto registrationById = registrationService.findRegistrationById(id);
         registrationService.deleteRegistrationById(registrationById);
-        return "redirect:/main-page/registrations/delete-registration-summary";
+        return "redirect:/main-page/registrations/delete-registration";
     }
 
     @GetMapping("/registrations/delete-registration-summary")
@@ -415,12 +433,7 @@ public class AdminController {
     public String deleteClassById(@RequestParam("idToDelete") Long id) {
         ClassDto classById = classService.findClassById(id);
         classService.deleteClassById(classById);
-        return "redirect:/main-page/classes/delete-class-summary";
-    }
-
-    @GetMapping("/classes/delete-class-summary")
-    public String showDeleteClassSummary() {
-        return "/admin/classes/delete-class-summary";
+        return "redirect:/main-page/classes/delete-class";
     }
 
     @GetMapping("/all-notifications")
@@ -449,7 +462,7 @@ public class AdminController {
     public String deleteNotificationById(@RequestParam("idToDelete") Long id) {
         NotificationDto notificationById = notificationService.findNotificationById(id);
         notificationService.deleteNotificationById(notificationById);
-        return "redirect:/main-page/notifications/delete-notification-summary";
+        return "redirect:/main-page/notifications/delete-notification";
     }
 
     @GetMapping("/notifications/delete-notification-summary")
